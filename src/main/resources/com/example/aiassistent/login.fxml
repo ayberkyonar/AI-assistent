@@ -8,18 +8,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.text.Font?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.aiassistent.LoginController"
       alignment="CENTER" spacing="10" style="-fx-background-color: #0a192f; -fx-padding: 20;">
-
-    <Label text="Inloggen op 42" textFill="WHITE" style="-fx-font-weight: bold;">
+    <Label text="Inloggen op 42" textFill="WHITE" style="-fx-font-weight: bold;" font="$x1">
         <VBox.margin>
             <Insets top="0" right="0" bottom="20" left="0"/>
         </VBox.margin>
     </Label>
-
     <GridPane alignment="CENTER" hgap="10" vgap="10" style="-fx-padding: 20;">
         <Label text="E-mailadres" textFill="WHITE" style="-fx-font-weight: semi-bold;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
         <TextField fx:id="emailField" promptText="Vul hier je e-mailadres in"
@@ -30,9 +28,7 @@
                        style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-prompt-text-fill: #a0aec0;"
                        prefWidth="450" prefHeight="28.8" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
     </GridPane>
-
     <Button text="Inloggen" style="-fx-background-color: #1e40af; -fx-text-fill: white; -fx-background-radius: 5;"
             prefWidth="450" prefHeight="28.8" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"
             onAction="#handleLogin"/>
-
 </VBox>

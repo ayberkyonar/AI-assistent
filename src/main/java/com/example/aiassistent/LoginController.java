@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
-
 public class LoginController {
 
     @FXML
