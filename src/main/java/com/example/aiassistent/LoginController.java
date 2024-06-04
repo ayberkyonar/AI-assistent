@@ -55,6 +55,7 @@ public class LoginController {
     }
 
     private boolean validateCredentials(String email, String password) {
+        // Simulate database check
         return "gebruiker@voorbeeld.com".equals(email) && "wachtwoord123".equals(password);
     }
 
