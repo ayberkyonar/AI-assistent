@@ -1,5 +1,8 @@
 package com.example.aiassistent.utils;
 
+import java.util.Scanner;
+import com.example.aiassistent.model.Gebruiker;
+
 public class Security {
     private static Security instance = null;
     private Gebruiker actieveGebruiker;
@@ -30,6 +33,7 @@ public class Security {
     }
 
     public Gebruiker login () {
+/*
 
         Scanner scanner = new Scanner (System.in);
         DataSeeder seeder = DataSeeder.getInstance ();
@@ -49,6 +53,7 @@ public class Security {
 
             System.out.print ("Voer opnieuw in (onbekende gebruikersnaam): ");
         }
+*/
 
         return null;
     }
