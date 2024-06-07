@@ -1,5 +1,8 @@
 package com.example.aiassistent;
 
+import com.example.aiassistent.model.Gebruiker;
+import com.example.aiassistent.utils.Security;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -32,7 +35,11 @@ public class LoginController {
     private void handleLogin() {
         String email = emailField.getText();
         String wachtwoord = passwordField.getText();
-        if (validateCredentials(email, wachtwoord)) {
+
+        Security security = Security.getInstance();
+        Gebruiker gebruiker = security.login(email, wachtwoord);
+
+        if (gebruiker != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/com/example/aiassistent/chat.fxml")));
                 Scene chatScene = new Scene(loader.load());
@@ -60,11 +67,6 @@ public class LoginController {
     private void handleMouseExit() {
         Button loginButton = (Button) emailField.getScene().lookup(".button");
         loginButton.setStyle("-fx-background-color: #1e40af; -fx-text-fill: white; -fx-background-radius: 5;");
-    }
-
-    private boolean validateCredentials(String email, String wachtwoord) {
-        // Simulate database check
-        return "gebruiker@voorbeeld.com".equals(email) && "wachtwoord123".equals(wachtwoord);
     }
 
     private Scene createChatScene() {

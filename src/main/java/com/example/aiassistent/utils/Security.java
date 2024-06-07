@@ -32,30 +32,19 @@ public class Security {
         return getActieveGebruiker () != null;
     }
 
-    public Gebruiker login () {
-/*
+    public Gebruiker login (String email, String wachtwoord) {
 
-        Scanner scanner = new Scanner (System.in);
-        DataSeeder seeder = DataSeeder.getInstance ();
         boolean ingelogd = false;
 
-        System.out.print ("Voer een gebruikersnaam in: ");
-
-        while (!ingelogd) {
-
-            String gebruikersnaam = scanner.nextLine ();
-            Gebruiker gebruiker = seeder.getGebruiker (gebruikersnaam);
-
-            if (gebruiker != null) {
+        for (Gebruiker gebruiker : DatabaseController.fetchAllGebruikers()) {
+            if (gebruiker.getEmail().equals(email) && gebruiker.getWachtwoord().equals(wachtwoord)) {
                 setActieveGebruiker (gebruiker);
-                return gebruiker;
+                ingelogd = true;
+                break;
             }
-
-            System.out.print ("Voer opnieuw in (onbekende gebruikersnaam): ");
         }
-*/
 
-        return null;
+        return ingelogd ? getActieveGebruiker () : null;
     }
 
     public void logout () {
