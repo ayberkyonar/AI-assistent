@@ -1,6 +1,7 @@
 package com.example.aiassistent;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -16,6 +17,9 @@ import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
+import java.io.IOException;
+import java.util.Objects;
+
 public class LoginController {
 
     @FXML
@@ -29,9 +33,14 @@ public class LoginController {
         String email = emailField.getText();
         String password = passwordField.getText();
         if (validateCredentials(email, password)) {
-            Scene chatScene = createChatScene();
-            Stage stage = (Stage) emailField.getScene().getWindow();
-            stage.setScene(chatScene);
+            try {
+                FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/com/example/aiassistent/Account.fxml")));
+                Scene accountScene = new Scene(loader.load());
+                Stage stage = (Stage) emailField.getScene().getWindow();
+                stage.setScene(accountScene);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Inlogfout");
