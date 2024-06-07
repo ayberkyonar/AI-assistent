@@ -34,10 +34,10 @@ public class LoginController {
         String wachtwoord = passwordField.getText();
         if (validateCredentials(email, wachtwoord)) {
             try {
-                FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/com/example/aiassistent/Account.fxml")));
-                Scene accountScene = new Scene(loader.load());
+                FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/com/example/aiassistent/chat.fxml")));
+                Scene chatScene = new Scene(loader.load());
                 Stage stage = (Stage) emailField.getScene().getWindow();
-                stage.setScene(accountScene);
+                stage.setScene(chatScene);
             } catch (IOException e) {
                 e.printStackTrace();
             }
