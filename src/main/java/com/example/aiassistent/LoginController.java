@@ -31,8 +31,8 @@ public class LoginController {
     @FXML
     private void handleLogin() {
         String email = emailField.getText();
-        String password = passwordField.getText();
-        if (validateCredentials(email, password)) {
+        String wachtwoord = passwordField.getText();
+        if (validateCredentials(email, wachtwoord)) {
             try {
                 FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/com/example/aiassistent/Account.fxml")));
                 Scene accountScene = new Scene(loader.load());
@@ -62,9 +62,9 @@ public class LoginController {
         loginButton.setStyle("-fx-background-color: #1e40af; -fx-text-fill: white; -fx-background-radius: 5;");
     }
 
-    private boolean validateCredentials(String email, String password) {
+    private boolean validateCredentials(String email, String wachtwoord) {
         // Simulate database check
-        return "gebruiker@voorbeeld.com".equals(email) && "wachtwoord123".equals(password);
+        return "gebruiker@voorbeeld.com".equals(email) && "wachtwoord123".equals(wachtwoord);
     }
 
     private Scene createChatScene() {
