@@ -1,32 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.aiassistent.LoginController"
-      alignment="CENTER" spacing="10" style="-fx-background-color: #0a192f; -fx-padding: 20;">
-    <Label text="Inloggen op 42" textFill="WHITE" style="-fx-font-weight: bold;">
-        <VBox.margin>
-            <Insets bottom="20"/>
-        </VBox.margin>
-    </Label>
-    <GridPane alignment="CENTER" hgap="10" vgap="10" style="-fx-padding: 20;">
-        <Label text="E-mailadres" textFill="WHITE" style="-fx-font-weight: 600;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <TextField fx:id="emailField" promptText="Vul hier je e-mailadres in"
-                   style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-prompt-text-fill: #a0aec0;"
-                   prefWidth="450" prefHeight="28.8" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <Label text="Wachtwoord" textFill="WHITE" style="-fx-font-weight: 600;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <PasswordField fx:id="passwordField" promptText="Vul hier je wachtwoord in"
-                       style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-prompt-text-fill: #a0aec0;"
-                       prefWidth="450" prefHeight="28.8" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-    </GridPane>
-    <Button text="Inloggen" style="-fx-background-color: #1e40af; -fx-text-fill: white; -fx-background-radius: 5;"
-            prefWidth="450" prefHeight="28.8" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"
-            onAction="#handleLogin"/>
-</VBox>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #0a192f; -fx-padding: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aiassistent.LoginController">
+   <children>
+       <Button layoutX="406.0" layoutY="447.0" onAction="#handleLogin" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="28.8" prefWidth="450" style="-fx-background-color: #1e40af; -fx-text-fill: white; -fx-background-radius: 5;" text="Inloggen" />
+        <PasswordField fx:id="passwordField" layoutX="458.0" layoutY="399.0" prefHeight="28.8" prefWidth="450" promptText="Vul hier je wachtwoord in" style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-prompt-text-fill: #a0aec0;" />
+        <TextField fx:id="emailField" layoutX="471.0" layoutY="363.0" prefHeight="28.8" prefWidth="450" promptText="Vul hier je e-mailadres in" style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-prompt-text-fill: #a0aec0;" />
+        <Label layoutX="396.0" layoutY="369.0" style="-fx-font-weight: 600;" text="E-mailadres" textFill="WHITE" />
+        <Label layoutX="385.0" layoutY="405.0" style="-fx-font-weight: 600;" text="Wachtwoord" textFill="WHITE" />
+   </children>
+</AnchorPane>

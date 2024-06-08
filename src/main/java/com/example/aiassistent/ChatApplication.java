@@ -17,7 +17,7 @@ public class ChatApplication extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/aiassistent/chat.fxml"));
             StackPane root = loader.load();
-            Scene scene = new Scene(root, 800, 600);
+            Scene scene = new Scene(root, 1280, 720);
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
