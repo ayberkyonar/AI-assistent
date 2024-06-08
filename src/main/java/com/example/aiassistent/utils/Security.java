@@ -1,5 +1,8 @@
 package com.example.aiassistent.utils;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.Scanner;
 import com.example.aiassistent.model.Gebruiker;
 
@@ -32,19 +35,30 @@ public class Security {
         return getActieveGebruiker () != null;
     }
 
-    public Gebruiker login (String email, String wachtwoord) {
+    private static String hashWachtwoord(String wachtwoord) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(wachtwoord.getBytes(StandardCharsets.UTF_8));
+            BigInteger number = new BigInteger(1, hash);
+            StringBuilder hexString = new StringBuilder(number.toString(16));
+            while (hexString.length() < 32) {
+                hexString.insert(0, '0');
+            }
+            return hexString.toString();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-        boolean ingelogd = false;
-
+    public Gebruiker login(String email, String wachtwoord) {
+        String hashedPassword = hashWachtwoord(wachtwoord);
         for (Gebruiker gebruiker : DatabaseController.fetchAllGebruikers()) {
-            if (gebruiker.getEmail().equals(email) && gebruiker.getWachtwoord().equals(wachtwoord)) {
-                setActieveGebruiker (gebruiker);
-                ingelogd = true;
-                break;
+            if (gebruiker.getEmail().equals(email) && gebruiker.getWachtwoord().equals(hashedPassword)) {
+                setActieveGebruiker(gebruiker);
+                return getActieveGebruiker();
             }
         }
-
-        return ingelogd ? getActieveGebruiker () : null;
+        return null;
     }
 
     public void logout () {

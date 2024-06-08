@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.security.MessageDigest;
+import java.nio.charset.StandardCharsets;
+import java.math.BigInteger;
 
 public class DatabaseController {
 
@@ -82,10 +85,14 @@ public class DatabaseController {
                     "`gebruikerID` INT AUTO_INCREMENT PRIMARY KEY, " +
                     "`naam` varchar(45) NOT NULL, " +
                     "`email` varchar(45) NOT NULL, " +
-                    "`wachtwoord` varchar(45) NOT NULL)");
+                    "`wachtwoord` varchar(64) NOT NULL)");
 
-            statement.executeUpdate("INSERT INTO `gebruiker` VALUES " +
-                    "(1, 'gebruiker', 'gebruiker@mail.com', 'test123')");
+            insertGebruikerData(connection, "gebruiker", "gebruiker@gmail.com", "gebruiker");
+            insertGebruikerData(connection, "daniel", "daniel@gmail.com", "daniel");
+            insertGebruikerData(connection, "ayberk", "ayberk@gmail.com", "ayberk");
+            insertGebruikerData(connection, "denvey", "denvey@gmail.com", "denvey");
+            insertGebruikerData(connection, "danish", "danish@gmail.com", "danish");
+            insertGebruikerData(connection, "mykyta", "mykyta@gmail.com", "mykyta");
 
             connection.close();
 
@@ -94,13 +101,29 @@ public class DatabaseController {
         }
     }
 
+    private static String hashWachtwoord(String wachtwoord) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(wachtwoord.getBytes(StandardCharsets.UTF_8));
+            BigInteger number = new BigInteger(1, hash);
+            StringBuilder hexString = new StringBuilder(number.toString(16));
+            while (hexString.length() < 32) {
+                hexString.insert(0, '0');
+            }
+            return hexString.toString();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private static void insertGebruikerData(Connection connection, String naam, String email, String wachtwoord) {
         try {
+            String hashedPassword = hashWachtwoord(wachtwoord);
             String query = "INSERT INTO gebruiker (naam, email, wachtwoord) VALUES (?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, naam);
             preparedStatement.setString(2, email);
-            preparedStatement.setString(3, wachtwoord);
+            preparedStatement.setString(3, hashedPassword);
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error inserting data: " + e);
