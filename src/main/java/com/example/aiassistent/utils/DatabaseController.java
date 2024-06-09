@@ -162,6 +162,20 @@ public class DatabaseController {
         }
         return properties;
     }
+
+    public void updateGebruiker(Gebruiker gebruiker) {
+        try {
+            String query = "UPDATE gebruiker SET naam = ?, email = ?, wachtwoord = ? WHERE gebruikerID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, gebruiker.getNaam());
+            preparedStatement.setString(2, gebruiker.getEmail());
+            preparedStatement.setString(3, gebruiker.getWachtwoord());
+            preparedStatement.setInt(4, gebruiker.getGebruikerID());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error updating gebruiker: " + e);
+        }
+    }
 /*
     // Delete later:
     public static void main(String[] args) {
