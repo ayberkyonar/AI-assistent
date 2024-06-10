@@ -1,5 +1,6 @@
 package com.example.aiassistent;
 
+import com.example.aiassistent.model.Gebruiker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -19,6 +20,7 @@ public class ChatController {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private Gebruiker gebruiker;
 
     @FXML
     private StackPane rootPane;
@@ -31,6 +33,9 @@ public class ChatController {
 
     @FXML
     private TextField messageField;
+
+    @FXML
+    private Button chatAanmaken;
 
     @FXML
     private Button verzend;
@@ -46,12 +51,25 @@ public class ChatController {
         verzend.setOnAction(event -> sendMessage());
         account.setOnAction(this::handleAccount);
         uitloggen.setOnAction(this::handleLogout);
+        chatAanmaken.setOnAction(this::createChat);
+    }
+
+    public void setGebruiker(Gebruiker gebruiker) {
+        this.gebruiker = gebruiker;
+        if (gebruiker != null) {
+            System.out.println("Gebruiker set: " + gebruiker.getNaam());
+        }
     }
 
     private void sendMessage() {
+        if (gebruiker == null) {
+            // Handle case when gebruiker is not initialized
+            chatArea.appendText("User is not logged in.\n");
+            return;
+        }
         String message = messageField.getText();
         if (!message.isEmpty()) {
-            chatHistoryArea.appendText("Ik: " + message + "\n");
+            chatArea.appendText(gebruiker.getNaam() + ": " + message + "\n");
             messageField.clear();
         }
     }
@@ -82,5 +100,8 @@ public class ChatController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private void createChat(ActionEvent event) {
+        // moet nog veranderd worden
     }
 }

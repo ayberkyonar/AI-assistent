@@ -174,6 +174,25 @@ public class DatabaseController {
             System.out.println("Error updating gebruiker: " + e);
         }
     }
+    public Gebruiker getGebruikerById(int gebruikerID) {
+        Gebruiker gebruiker = null;
+        try {
+            String query = "SELECT * FROM gebruiker WHERE gebruikerID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, gebruikerID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String naam = resultSet.getString("naam");
+                String email = resultSet.getString("email");
+                String wachtwoord = resultSet.getString("wachtwoord");
+                gebruiker = new Gebruiker(gebruikerID, naam, email, wachtwoord);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching gebruiker: " + e);
+        }
+        return gebruiker;
+    }
+}
 /*
     // Delete later:
     public static void main(String[] args) {
@@ -182,4 +201,3 @@ public class DatabaseController {
         Connection connection = databaseController.getConnection();
 
     }*/
-}
