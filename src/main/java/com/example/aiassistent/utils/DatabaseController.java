@@ -94,8 +94,6 @@ public class DatabaseController {
             insertGebruikerData(connection, "danish", "danish@gmail.com", "danish");
             insertGebruikerData(connection, "mykyta", "mykyta@gmail.com", "mykyta");
 
-            connection.close();
-
         } catch (Exception e) {
             System.out.println("Error creating tables: " + e);
         }
