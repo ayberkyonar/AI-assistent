@@ -6,7 +6,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -45,8 +44,8 @@ public class ChatController {
     @FXML
     private void initialize() {
         sendButton.setOnAction(event -> sendMessage());
-        accountButton.setOnAction(event -> handleAccount());
-        logoutButton.setOnAction(event -> handleLogout());
+        accountButton.setOnAction(this::handleAccount);
+        logoutButton.setOnAction(this::handleLogout);
     }
 
     private void sendMessage() {
@@ -57,6 +56,7 @@ public class ChatController {
         }
     }
 
+    @FXML
     private void handleLogout(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/aiassistent/login.fxml"));
@@ -81,6 +81,6 @@ public class ChatController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            }
+        }
     }
 }
