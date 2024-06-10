@@ -33,19 +33,19 @@ public class ChatController {
     private TextField messageField;
 
     @FXML
-    private Button sendButton;
+    private Button verzend;
 
     @FXML
-    private Button accountButton;
+    private Button account;
 
     @FXML
-    private Button logoutButton;
+    private Button uitloggen;
 
     @FXML
     private void initialize() {
-        sendButton.setOnAction(event -> sendMessage());
-        accountButton.setOnAction(this::handleAccount);
-        logoutButton.setOnAction(this::handleLogout);
+        verzend.setOnAction(event -> sendMessage());
+        account.setOnAction(this::handleAccount);
+        uitloggen.setOnAction(this::handleLogout);
     }
 
     private void sendMessage() {
