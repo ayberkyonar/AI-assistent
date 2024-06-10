@@ -1,4 +1,4 @@
-package com.example.aiassistent;
+package com.example.aiassistent.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
