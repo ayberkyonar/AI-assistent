@@ -99,7 +99,7 @@ public class DatabaseController {
         }
     }
 
-    private static String hashWachtwoord(String wachtwoord) {
+    public static String hashWachtwoord(String wachtwoord) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] hash = md.digest(wachtwoord.getBytes(StandardCharsets.UTF_8));
