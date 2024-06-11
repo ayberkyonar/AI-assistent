@@ -25,7 +25,7 @@ public class ChatApplication extends Application {
         ChatController controller = loader.getController();
         controller.setGebruiker(huidigeGebruiker);
 
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
     }
 
