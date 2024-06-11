@@ -87,14 +87,31 @@ public class DatabaseController {
                     "`email` varchar(45) NOT NULL, " +
                     "`wachtwoord` varchar(64) NOT NULL)");
 
+            statement.executeUpdate("CREATE TABLE `chatsessie` (" +
+                    "`chatsessieID` INT AUTO_INCREMENT PRIMARY KEY, " +
+                    "`gebruikerID` INT NOT NULL, " +
+                    "`onderwerp` varchar(255) NOT NULL, " +
+                    "FOREIGN KEY (`gebruikerID`) REFERENCES `gebruiker`(`gebruikerID`))");
+
+            statement.executeUpdate("CREATE TABLE `vraag` (" +
+                    "`vraagID` INT AUTO_INCREMENT PRIMARY KEY, " +
+                    "`chatsessieID` INT NOT NULL, " +
+                    "`vraag` varchar(255) NOT NULL, " +
+                    "FOREIGN KEY (`chatsessieID`) REFERENCES `chatsessie`(`chatsessieID`))");
+
+            statement.executeUpdate("CREATE TABLE `antwoord` (" +
+                    "`antwoordID` INT AUTO_INCREMENT PRIMARY KEY, " +
+                    "`tekst` varchar(255) NOT NULL, " +
+                    "`herkomst` varchar(255) NOT NULL, " +
+                    "`vraagID` INT NOT NULL, " +
+                    "FOREIGN KEY (`vraagID`) REFERENCES `vraag`(`vraagID`))");
+
             insertGebruikerData(connection, "gebruiker", "gebruiker@gmail.com", "gebruiker");
             insertGebruikerData(connection, "daniel", "daniel@gmail.com", "daniel");
             insertGebruikerData(connection, "ayberk", "ayberk@gmail.com", "ayberk");
             insertGebruikerData(connection, "denvey", "denvey@gmail.com", "denvey");
             insertGebruikerData(connection, "danish", "danish@gmail.com", "danish");
             insertGebruikerData(connection, "mykyta", "mykyta@gmail.com", "mykyta");
-
-            connection.close();
 
         } catch (Exception e) {
             System.out.println("Error creating tables: " + e);
@@ -176,6 +193,25 @@ public class DatabaseController {
             System.out.println("Error updating gebruiker: " + e);
         }
     }
+    public Gebruiker getGebruikerById(int gebruikerID) {
+        Gebruiker gebruiker = null;
+        try {
+            String query = "SELECT * FROM gebruiker WHERE gebruikerID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, gebruikerID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String naam = resultSet.getString("naam");
+                String email = resultSet.getString("email");
+                String wachtwoord = resultSet.getString("wachtwoord");
+                gebruiker = new Gebruiker(gebruikerID, naam, email, wachtwoord);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching gebruiker: " + e);
+        }
+        return gebruiker;
+    }
+}
 /*
     // Delete later:
     public static void main(String[] args) {
@@ -184,4 +220,3 @@ public class DatabaseController {
         Connection connection = databaseController.getConnection();
 
     }*/
-}

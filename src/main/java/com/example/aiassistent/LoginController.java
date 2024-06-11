@@ -19,6 +19,12 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+
+
 
 import java.io.IOException;
 import java.util.Objects;
@@ -32,22 +38,21 @@ public class LoginController {
     private PasswordField passwordField;
 
     @FXML
-    private void handleLogin() {
+    private void handleLogin(ActionEvent event) throws IOException {
         String email = emailField.getText();
-        String wachtwoord = passwordField.getText();
+        String password = passwordField.getText();
 
-        Security security = Security.getInstance();
-        Gebruiker gebruiker = security.login(email, wachtwoord);
+        // Пытаемся войти в систему
+        Gebruiker currentUser = Security.getInstance().login(email, password);
+        if (currentUser != null) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/aiassistent/chat.fxml"));
+            Parent root = loader.load();
+            ChatController controller = loader.getController();
+            controller.setGebruiker(currentUser);
 
-        if (gebruiker != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/com/example/aiassistent/chat.fxml")));
-                Scene chatScene = new Scene(loader.load());
-                Stage stage = (Stage) emailField.getScene().getWindow();
-                stage.setScene(chatScene);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
         } else {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Inlogfout");
@@ -67,23 +72,5 @@ public class LoginController {
     private void handleMouseExit() {
         Button loginButton = (Button) emailField.getScene().lookup(".button");
         loginButton.setStyle("-fx-background-color: #1e40af; -fx-text-fill: white; -fx-background-radius: 5;");
-    }
-
-    private Scene createChatScene() {
-        VBox chatBox = new VBox();
-        chatBox.setAlignment(Pos.CENTER);
-        chatBox.setSpacing(10);
-        chatBox.setPadding(new Insets(20));
-
-        Label chatLabel = new Label("Welkom in de chat!");
-        chatLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-        chatLabel.setTextFill(Color.WHITE);
-
-        chatBox.getChildren().add(chatLabel);
-
-        Scene chatScene = new Scene(chatBox, 1280, 720);
-        chatBox.setStyle("-fx-background-color: #0a192f;");
-
-        return chatScene;
     }
 }

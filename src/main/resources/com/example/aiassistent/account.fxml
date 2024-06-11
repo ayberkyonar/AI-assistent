@@ -21,8 +21,8 @@
                         <Insets bottom="10" left="10" right="10" top="10" />
                     </padding>
                     <children>
-                        <Button styleClass="button-primary" text="Chat" />
-                        <Button styleClass="button-primary" text="Uitloggen" />
+                        <Button styleClass="button-primary" text="Chat" fx:id="chat"/>
+                        <Button styleClass="button-primary" text="Uitloggen" fx:id="uitloggen"/>
                     </children>
                 </HBox>
                 <Label styleClass="label-title" text="Account" textFill="WHITE" />
