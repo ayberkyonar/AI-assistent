@@ -21,8 +21,8 @@
                         <Insets bottom="10" left="10" right="10" top="10" />
                     </padding>
                     <children>
-                        <Button styleClass="button-primary" text="Chat" />
-                        <Button styleClass="button-primary" text="Uitloggen" />
+                        <Button styleClass="button-primary" text="Chat" fx:id="chat"/>
+                        <Button styleClass="button-primary" text="Uitloggen" fx:id="uitloggen"/>
                     </children>
                 </HBox>
                 <Label styleClass="label-title" text="Account" textFill="WHITE" />
@@ -32,16 +32,13 @@
                     </padding>
                     <children>
                         <Label styleClass="label-default" text="Nieuwe Email" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <TextField prefHeight="28.8" prefWidth="450" promptText="Email" style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-prompt-text-fill: #a0aec0;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <TextField fx:id="emailField" prefHeight="28.8" prefWidth="450" promptText="Email" style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-prompt-text-fill: #a0aec0;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
                         <Label styleClass="label-default" text="Nieuwe Gebruikersnaam" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                        <TextField prefHeight="28.8" prefWidth="450" promptText="Gebruikersnaam" style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-prompt-text-fill: #a0aec0;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="usernameField" prefHeight="28.8" prefWidth="450" promptText="Gebruikersnaam" style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-prompt-text-fill: #a0aec0;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                         <Label styleClass="label-default" text="Nieuwe Wachtwoord" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                        <PasswordField prefHeight="28.8" prefWidth="450" promptText="Wachtwoord" style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-prompt-text-fill: #a0aec0;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-                        <Label styleClass="label-default" text="Bevestig Oude Wachtwoord" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                        <PasswordField prefHeight="28.8" prefWidth="450" promptText="Nieuw Wachtwoord" style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-prompt-text-fill: #a0aec0;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <PasswordField fx:id="passwordField" prefHeight="28.8" prefWidth="450" promptText="Wachtwoord" style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-prompt-text-fill: #a0aec0;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     </children>
                <columnConstraints>
                   <ColumnConstraints />
@@ -54,7 +51,7 @@
                   <RowConstraints />
                </rowConstraints>
                 </GridPane>
-                <Button prefHeight="29.0" prefWidth="265.0" styleClass="button-primary" text="Gegevens bevestigen" />
+                <Button fx:id="confirmButton" prefHeight="29.0" prefWidth="265.0" styleClass="button-primary" text="Gegevens bevestigen" />
             </children>
         </VBox>
     </children>
