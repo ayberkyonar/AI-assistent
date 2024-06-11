@@ -33,7 +33,7 @@
             <HBox alignment="TOP_RIGHT" prefHeight="18.0" prefWidth="249.0" spacing="10">
                 <ImageView fitHeight="43.0" fitWidth="40.0" layoutX="100.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../../../../../../Downloads/logo42-removebg-preview.png" />
+                        <Image url="@../../../images/42bv.png" />
                     </image>
                 </ImageView>
                 <Button style="-fx-font-size: 16px; -fx-min-height: 40px;" styleClass="button-primary" text="Uitloggen" />
