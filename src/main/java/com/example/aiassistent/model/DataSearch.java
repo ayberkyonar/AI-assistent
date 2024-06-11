@@ -2,8 +2,8 @@ package com.example.aiassistent.model;
 
 public class DataSearch extends Antwoord {
 
-    public DataSearch(int antwoordID, int vraagID, String tekst) {
-        super(antwoordID, vraagID, tekst);
+    public DataSearch(int antwoordID, String tekst, int vraagID) {
+        super(antwoordID, tekst, vraagID);
     }
 
     @Override

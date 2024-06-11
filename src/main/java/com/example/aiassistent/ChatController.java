@@ -1,6 +1,7 @@
 package com.example.aiassistent;
 
 import com.example.aiassistent.model.Gebruiker;
+import com.example.aiassistent.utils.Security;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -77,11 +78,13 @@ public class ChatController {
     @FXML
     private void handleLogout(ActionEvent event) {
         try {
+            Security security = Security.getInstance();
+            security.logout();
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/aiassistent/login.fxml"));
             root = loader.load();
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
+            stage.setScene(new Scene(root, 1280, 720));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
