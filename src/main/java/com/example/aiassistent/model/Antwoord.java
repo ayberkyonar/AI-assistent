@@ -2,13 +2,14 @@ package com.example.aiassistent.model;
 
 abstract public class Antwoord {
     private int antwoordID;
-    private int vraagID;
     private String tekst;
+    private String herkomst;
+    private int vraagID;
 
-    public Antwoord(int antwoordID, int vraagID, String tekst) {
+    public Antwoord(int antwoordID, String tekst, int vraagID) {
         this.antwoordID = antwoordID;
-        this.vraagID = vraagID;
         this.tekst = tekst;
+        this.vraagID = vraagID;
     }
 
     public String getTekst() {
