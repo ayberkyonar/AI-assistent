@@ -17,6 +17,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.crypto.SecretKey;
 import java.io.IOException;
 
 public class AccountController {
@@ -78,12 +79,15 @@ public class AccountController {
         Gebruiker newGebruiker = new Gebruiker(gebruiker.getGebruikerID(), newUsername, newEmail, hashedPassword);
 
         DatabaseController.getInstance().updateGebruiker(newGebruiker);
+        Security security = Security.getInstance();
+        security.login(newEmail, newPassword);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Bevestiging");
         alert.setHeaderText(null);
         alert.setContentText("Gegevens zijn succesvol bevestigd!");
 
+        System.out.println(security.getActieveGebruiker());
         alert.showAndWait();
     }
 
