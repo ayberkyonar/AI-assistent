@@ -24,7 +24,7 @@
         <VBox alignment="CENTER_LEFT" fillWidth="false" prefHeight="54.0" prefWidth="230.0" style="-fx-background-color: #0a192f;">
             <TextArea fx:id="chatHistoryArea" editable="false" prefHeight="354.0" prefWidth="210.0" promptText="Vorige sessies..." style="-fx-background-color: #0a192f; -fx-text-fill: #d1d5db; -fx-font-size: 16px;" VBox.vgrow="ALWAYS">
                 <padding>
-                    <Insets bottom="50.0" top="55.0" />
+                    <Insets bottom="50.0" top="50.0" />
                 </padding>
             </TextArea>
             <HBox.margin>
@@ -39,8 +39,8 @@
                         <Image url="@../../../images/42bv.png" />
                     </image>
                 </ImageView>
-                <Button styleClass="button-primary" text="Account" fx:id="account"/>
-                <Button styleClass="button-primary" text="Uitloggen" fx:id="uitloggen"/>
+                <Button fx:id="account" prefHeight="40.0" prefWidth="72.0" styleClass="button-primary" text="Account" />
+                <Button fx:id="uitloggen" prefHeight="39.0" prefWidth="83.0" styleClass="button-primary" text="Uitloggen" />
             </HBox>
             <VBox spacing="5" VBox.vgrow="ALWAYS">
                 <TextArea fx:id="chatArea" prefHeight="402.0" prefWidth="727.0" promptText="Chatberichten..." style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-font-size: 16px;" VBox.vgrow="ALWAYS">
@@ -51,11 +51,11 @@
             </VBox>
             <HBox spacing="10">
                 <TextField fx:id="messageField" prefHeight="34.0" prefWidth="656.0" promptText="Typ uw bericht.." style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-font-size: 16px;" HBox.hgrow="ALWAYS" />
-                <Button fx:id="verzend" minHeight="28.0" prefHeight="28.0" prefWidth="90.0" style="-fx-font-size: 16px; -fx-min-height: 40px;" styleClass="button-primary" text="Verzend"/>
+                <Button fx:id="verzend" minHeight="28.0" prefHeight="40.0" prefWidth="90.0" style="-fx-font-size: 16px; -fx-min-height: 40px;" styleClass="button-primary" text="Verzend" />
             </HBox>
         </VBox>
     </HBox>
-    <Button styleClass="button-primary" text="Chat Aanmaken" fx:id="chatAanmaken" StackPane.alignment="BOTTOM_LEFT">
+    <Button fx:id="chatAanmaken" prefHeight="36.0" prefWidth="211.0" styleClass="button-primary" text="Chat Aanmaken" StackPane.alignment="BOTTOM_LEFT">
         <StackPane.margin>
             <Insets bottom="3.0" right="15.0" />
         </StackPane.margin>
