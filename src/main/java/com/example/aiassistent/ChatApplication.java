@@ -1,5 +1,6 @@
 package com.example.aiassistent;
 
+import com.example.aiassistent.model.Chatsessie;
 import com.example.aiassistent.model.Gebruiker;
 import com.example.aiassistent.utils.DatabaseController;
 import javafx.application.Application;
@@ -13,6 +14,10 @@ public class ChatApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        openChatSession(primaryStage, "Welkom!");
+    }
+
+    public void openChatSession(Stage primaryStage, String onderwerp) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/aiassistent/chat.fxml"));
         Parent root = loader.load();
         ChatController controller = loader.getController();
@@ -20,8 +25,6 @@ public class ChatApplication extends Application {
         primaryStage.show();
 
     }
-
-
 
     public static void main(String[] args) {
         launch(args);
