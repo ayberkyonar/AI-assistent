@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataSearch extends Antwoord {
-    private static final String JSON_FILE = "C:/Users/Danis/IdeaProjects/AI-assistent/src/main/java/com/example/aiassistent/utils/package.json";
+    private static final String JSON_FILE = "src/main/java/com/example/aiassistent/utils/package.json";
 
     public DataSearch(int antwoordID, String tekst, int vraagID) {
         super(antwoordID, tekst, vraagID);
