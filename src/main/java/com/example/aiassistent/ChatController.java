@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import com.example.aiassistent.model.DataSearch;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class ChatController {
 
     @FXML
     private Button uitloggen;
+    
 
     @FXML
     private void initialize() {
@@ -55,7 +57,6 @@ public class ChatController {
         account.setOnAction(this::handleAccount);
         uitloggen.setOnAction(this::handleLogout);
         chatAanmaken.setOnAction(this::createChat);
-        loadChatHistory();
     }
 
     private void sendMessage() {
@@ -69,7 +70,10 @@ public class ChatController {
         }
         String message = messageField.getText();
         if (!message.isEmpty()) {
+            DataSearch dataSearch = new DataSearch(0, "", 0); // Initialize DataSearch object
+            String antwoord = String.valueOf(dataSearch.zoekAntwoord(message));
             chatArea.appendText(gebruiker.getNaam() + ": " + message + "\n");
+            chatArea.appendText("AI: " + antwoord + "\n");
             messageField.clear();
         }
     }
@@ -89,6 +93,7 @@ public class ChatController {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     private void handleAccount(ActionEvent event) {
@@ -119,6 +124,7 @@ public class ChatController {
     }
 
     private void createChat(ActionEvent event) {
+
         try {
 
             DatabaseController databaseController = DatabaseController.getInstance();
@@ -134,5 +140,6 @@ public class ChatController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }
