@@ -1,5 +1,6 @@
 package com.example.aiassistent;
 
+import com.example.aiassistent.model.Chatsessie;
 import com.example.aiassistent.model.Gebruiker;
 import com.example.aiassistent.utils.Security;
 import javafx.fxml.FXML;
@@ -22,6 +23,7 @@ public class ChatController {
     private Scene scene;
     private Parent root;
     private Gebruiker gebruiker;
+    private String onderwerp;
 
     @FXML
     private StackPane rootPane;
@@ -62,9 +64,13 @@ public class ChatController {
         }
     }
 
+    public void setOnderwerp(String onderwerp) {
+        this.onderwerp = onderwerp;
+        chatArea.appendText("Onderwerp: " + onderwerp + "\n");
+    }
+
     private void sendMessage() {
         if (gebruiker == null) {
-            // Handle case when gebruiker is not initialized
             chatArea.appendText("User is not logged in.\n");
             return;
         }
@@ -104,7 +110,22 @@ public class ChatController {
             e.printStackTrace();
         }
     }
+
     private void createChat(ActionEvent event) {
-        // moet nog veranderd worden
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/aiassistent/chat.fxml"));
+            root = loader.load();
+
+            ChatController controller = loader.getController();
+            controller.setGebruiker(gebruiker);
+
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root));
+            newStage.show();
+
+            controller.setOnderwerp("Nieuw onderwerp");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
