@@ -43,6 +43,6 @@
     </GridPane>
     <Button onAction="#handleLogin" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="40.0" prefWidth="450" style="-fx-background-color: #1e40af; -fx-text-fill: white; -fx-background-radius: 5;" text="Inloggen">
       <font>
-         <Font name="System Bold" size="12.0" />
+         <Font name="System Bold" size="15.0" />
       </font></Button>
 </VBox>
