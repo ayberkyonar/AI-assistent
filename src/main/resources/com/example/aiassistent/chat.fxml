@@ -63,7 +63,7 @@
             <Font size="14.0" />
         </font>
     </Button>
-    <Label prefHeight="28.0" prefWidth="155.0" text="GESCHIEDENIS" textFill="WHITE" StackPane.alignment="TOP_LEFT">
+    <Label prefHeight="28.0" prefWidth="155.0" text="Geschiedenis" textFill="WHITE" StackPane.alignment="TOP_LEFT">
         <StackPane.margin>
             <Insets right="1.0" top="11.0" />
         </StackPane.margin>
