@@ -21,7 +21,6 @@ public class ChatController {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    private Gebruiker gebruiker;
 
     @FXML
     private StackPane rootPane;
@@ -55,14 +54,11 @@ public class ChatController {
         chatAanmaken.setOnAction(this::createChat);
     }
 
-    public void setGebruiker(Gebruiker gebruiker) {
-        this.gebruiker = gebruiker;
-        if (gebruiker != null) {
-            System.out.println("Gebruiker set: " + gebruiker.getNaam());
-        }
-    }
-
     private void sendMessage() {
+
+        Security security = Security.getInstance();
+        Gebruiker gebruiker = security.getActieveGebruiker();
+
         if (gebruiker == null) {
             // Handle case when gebruiker is not initialized
             chatArea.appendText("User is not logged in.\n");
