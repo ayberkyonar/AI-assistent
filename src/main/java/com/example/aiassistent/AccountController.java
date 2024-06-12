@@ -113,8 +113,7 @@ public class AccountController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/aiassistent/chat.fxml"));
             root = loader.load();
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
+            stage.setScene(new Scene(root, 1280, 720));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

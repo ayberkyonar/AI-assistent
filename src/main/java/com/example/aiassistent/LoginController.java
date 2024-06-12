@@ -51,7 +51,7 @@ public class LoginController {
             controller.setGebruiker(currentUser);
 
             Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            primaryStage.setScene(new Scene(root));
+            primaryStage.setScene(new Scene(root, 1280, 720));
             primaryStage.show();
         } else {
             Alert alert = new Alert(AlertType.ERROR);
