@@ -110,6 +110,6 @@ public class ChatController {
         }
     }
     private void createChat(ActionEvent event) {
-        // moet nog veranderd worden
+
     }
 }
