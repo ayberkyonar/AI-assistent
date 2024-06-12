@@ -1,5 +1,6 @@
 package com.example.aiassistent.utils;
 
+import com.example.aiassistent.model.Chatsessie;
 import com.example.aiassistent.model.Gebruiker;
 
 import java.sql.*;
@@ -168,6 +169,44 @@ public class DatabaseController {
             System.out.println("Error fetching gebruikers: " + e);
         }
         return gebruikers;
+    }
+    public static void insertChatsessieData(Gebruiker gebruiker, String onderwerp) {
+
+        Connection connection = DatabaseController.getInstance().getConnection();
+
+        int gebruikerID = gebruiker.getGebruikerID();
+
+        try {
+            String query = "INSERT INTO chatsessie (gebruikerID, onderwerp) VALUES (?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, gebruikerID);
+            preparedStatement.setString(2, onderwerp);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error inserting data: " + e);
+        }
+    }
+
+    public static ArrayList<Chatsessie> getChatsessies(int gebruikerID) {
+
+        Connection connection = DatabaseController.getInstance().getConnection();
+        ArrayList<Chatsessie> chatsessies = new ArrayList<>();
+
+        try {
+            String query = "SELECT * FROM chatsessie WHERE gebruikerID = ? ORDER BY chatsessieID DESC";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, gebruikerID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int chatsessieID = resultSet.getInt("chatsessieID");
+                String onderwerp = resultSet.getString("onderwerp");
+                Chatsessie chatsessie = new Chatsessie(chatsessieID, gebruikerID, onderwerp);
+                chatsessies.add(chatsessie);
+            }
+        } catch (Exception e) {
+            System.out.println("Error fetching chatsessies: " + e);
+        }
+        return chatsessies;
     }
 
     private static Properties readConfig() {
