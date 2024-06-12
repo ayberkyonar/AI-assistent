@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -12,47 +13,53 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane alignment="CENTER" style="-fx-background-color: #0a192f; -fx-padding: 20;" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.example.aiassistent.AccountController">
+<StackPane alignment="CENTER" style="-fx-background-color: #0a192f; -fx-padding: 20;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aiassistent.AccountController">
     <children>
-        <VBox alignment="CENTER" spacing="10">
-            <children>
-                <HBox alignment="TOP_RIGHT" spacing="10">
+        <BorderPane>
+            <top>
+                <HBox alignment="TOP_RIGHT" spacing="10" BorderPane.alignment="CENTER_RIGHT">
                     <padding>
                         <Insets bottom="10" left="10" right="10" top="10" />
                     </padding>
                     <children>
-                        <Button styleClass="button-primary" text="Chat" fx:id="chat"/>
-                        <Button styleClass="button-primary" text="Uitloggen" fx:id="uitloggen"/>
+                        <Button fx:id="uitloggen" prefHeight="40.0" prefWidth="86.0" styleClass="button-primary" text="Uitloggen" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="chat" prefHeight="40.0" prefWidth="65.0" styleClass="button-primary" text="Chat" />
                     </children>
                 </HBox>
-                <Label styleClass="label-title" text="Account" textFill="WHITE" />
-                <GridPane alignment="CENTER" hgap="10" vgap="10">
-                    <padding>
-                        <Insets bottom="20" left="20" right="20" top="20" />
-                    </padding>
+            </top>
+            <center>
+                <VBox alignment="CENTER" spacing="10">
                     <children>
-                        <Label styleClass="label-default" text="Nieuwe Email" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <TextField fx:id="emailField" prefHeight="28.8" prefWidth="450" promptText="Email" style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-prompt-text-fill: #a0aec0;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label styleClass="label-title" text="Account" textFill="WHITE" />
+                        <GridPane alignment="CENTER" hgap="10" vgap="10">
+                            <padding>
+                                <Insets bottom="20" left="20" right="20" top="20" />
+                            </padding>
+                            <children>
+                                <Label styleClass="label-default" text="Nieuwe Email" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <TextField fx:id="emailField" prefHeight="40.0" prefWidth="454.0" promptText="Email" style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-prompt-text-fill: #a0aec0;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                        <Label styleClass="label-default" text="Nieuwe Gebruikersnaam" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                        <TextField fx:id="usernameField" prefHeight="28.8" prefWidth="450" promptText="Gebruikersnaam" style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-prompt-text-fill: #a0aec0;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label styleClass="label-default" text="Nieuwe Gebruikersnaam" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                <TextField fx:id="usernameField" prefHeight="40.0" prefWidth="454.0" promptText="Gebruikersnaam" style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-prompt-text-fill: #a0aec0;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                        <Label styleClass="label-default" text="Nieuwe Wachtwoord" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                        <PasswordField fx:id="passwordField" prefHeight="28.8" prefWidth="450" promptText="Wachtwoord" style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-prompt-text-fill: #a0aec0;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                <Label styleClass="label-default" text="Nieuwe Wachtwoord" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                <PasswordField fx:id="passwordField" prefHeight="40.0" prefWidth="454.0" promptText="Wachtwoord" style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-prompt-text-fill: #a0aec0;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                            </children>
+                            <columnConstraints>
+                                <ColumnConstraints />
+                                <ColumnConstraints />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints />
+                                <RowConstraints />
+                            </rowConstraints>
+                        </GridPane>
+                        <Button fx:id="confirmButton" prefHeight="40.0" prefWidth="346.0" styleClass="button-primary" text="Gegevens bevestigen" />
                     </children>
-               <columnConstraints>
-                  <ColumnConstraints />
-                  <ColumnConstraints />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-               </rowConstraints>
-                </GridPane>
-                <Button fx:id="confirmButton" prefHeight="29.0" prefWidth="265.0" styleClass="button-primary" text="Gegevens bevestigen" />
-            </children>
-        </VBox>
+                </VBox>
+            </center>
+        </BorderPane>
     </children>
 </StackPane>

@@ -5,28 +5,44 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.aiassistent.LoginController"
-      alignment="CENTER" spacing="10" style="-fx-background-color: #0a192f; -fx-padding: 20;">
-    <Label text="Inloggen op 42" textFill="WHITE" style="-fx-font-weight: bold;">
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" spacing="10" style="-fx-background-color: #0a192f; -fx-padding: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aiassistent.LoginController">
+    <Label style="-fx-font-weight: bold;" text="Inloggen op 42" textFill="WHITE">
         <VBox.margin>
-            <Insets bottom="20"/>
+            <Insets bottom="20" />
         </VBox.margin>
+      <font>
+         <Font size="20.0" />
+      </font>
     </Label>
-    <GridPane alignment="CENTER" hgap="10" vgap="10" style="-fx-padding: 20;">
-        <Label text="E-mailadres" textFill="WHITE" style="-fx-font-weight: 600;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-        <TextField fx:id="emailField" promptText="Vul hier je e-mailadres in"
-                   style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-prompt-text-fill: #a0aec0;"
-                   prefWidth="450" prefHeight="28.8" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <Label text="Wachtwoord" textFill="WHITE" style="-fx-font-weight: 600;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <PasswordField fx:id="passwordField" promptText="Vul hier je wachtwoord in"
-                       style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-prompt-text-fill: #a0aec0;"
-                       prefWidth="450" prefHeight="28.8" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <GridPane alignment="CENTER" hgap="10" style="-fx-padding: 20;" vgap="10">
+        <Label style="-fx-font-weight: 600;" text="E-mailadres" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+        <TextField fx:id="emailField" prefHeight="40.0" prefWidth="450" promptText="Vul hier je e-mailadres in" style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-prompt-text-fill: #a0aec0;" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label style="-fx-font-weight: 600;" text="Wachtwoord" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="2">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+        <PasswordField fx:id="passwordField" prefHeight="41.0" prefWidth="450" promptText="Vul hier je wachtwoord in" style="-fx-background-color: #1e3a8a; -fx-text-fill: white; -fx-prompt-text-fill: #a0aec0;" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+      <columnConstraints>
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
     </GridPane>
-    <Button text="Inloggen" style="-fx-background-color: #1e40af; -fx-text-fill: white; -fx-background-radius: 5;"
-            prefWidth="450" prefHeight="28.8" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit"
-            onAction="#handleLogin"/>
+    <Button onAction="#handleLogin" onMouseEntered="#handleMouseEnter" onMouseExited="#handleMouseExit" prefHeight="40.0" prefWidth="450" style="-fx-background-color: #1e40af; -fx-text-fill: white; -fx-background-radius: 5;" text="Inloggen">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
 </VBox>
