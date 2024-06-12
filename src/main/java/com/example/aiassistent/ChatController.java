@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import com.example.aiassistent.model.DataSearch;
 
 import java.io.IOException;
 
@@ -47,19 +48,20 @@ public class ChatController {
     @FXML
     private Button uitloggen;
 
-    @FXML
-    private void initialize() {
-        verzend.setOnAction(event -> sendMessage());
-        account.setOnAction(this::handleAccount);
-        uitloggen.setOnAction(this::handleLogout);
-        chatAanmaken.setOnAction(this::createChat);
-    }
 
     public void setGebruiker(Gebruiker gebruiker) {
         this.gebruiker = gebruiker;
         if (gebruiker != null) {
             System.out.println("Gebruiker set: " + gebruiker.getNaam());
         }
+    }
+
+    @FXML
+    private void initialize() {
+        verzend.setOnAction(event -> sendMessage());
+        account.setOnAction(this::handleAccount);
+        uitloggen.setOnAction(this::handleLogout);
+        chatAanmaken.setOnAction(this::createChat);
     }
 
     private void sendMessage() {
@@ -70,7 +72,10 @@ public class ChatController {
         }
         String message = messageField.getText();
         if (!message.isEmpty()) {
+            DataSearch dataSearch = new DataSearch(0, "", 0); // Initialize DataSearch object
+            String antwoord = String.valueOf(dataSearch.zoekAntwoord(message));
             chatArea.appendText(gebruiker.getNaam() + ": " + message + "\n");
+            chatArea.appendText("AI: " + antwoord + "\n");
             messageField.clear();
         }
     }
@@ -90,6 +95,7 @@ public class ChatController {
             e.printStackTrace();
         }
     }
+
 
     @FXML
     private void handleAccount(ActionEvent event) {

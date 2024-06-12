@@ -40,7 +40,7 @@ abstract public class Antwoord {
         return "Antwoord";
     }
 
-    abstract public String maakAntwoord();
+    abstract public String maakAntwoord(String prompt);
     abstract public boolean checkAntwoord(String tekst);
 
 }

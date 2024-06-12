@@ -7,8 +7,9 @@ public class AISearch extends Antwoord {
         }
 
         @Override
-        public String maakAntwoord() {
+        public String maakAntwoord(String prompt) {
             return null;
+
         }
 
         @Override

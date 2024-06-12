@@ -1,5 +1,6 @@
 {
   "hallo": "Hallo dit is AI42! Hoe kan ik je helpen?",
   "help": "Natuurlijk! Waarmee kan ik je helpen?",
-  "dank je": "Graag gedaan!"
+  "dank je": "Graag gedaan!",
+  "Java": "Java is een objectgeoriënteerde programmeertaal. Java is een platformonafhankelijke taal die qua syntaxis grotendeels gebaseerd is op de programmeertaal C++. Java beschikt echter over een uitgebreidere klassenbibliotheek dan C++"
 }
