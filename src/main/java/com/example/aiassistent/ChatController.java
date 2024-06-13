@@ -6,6 +6,8 @@ import com.example.aiassistent.model.Vraag;
 import com.example.aiassistent.utils.DatabaseController;
 import com.example.aiassistent.utils.Security;
 import javafx.fxml.FXML;
+import com.example.aiassistent.utils.ObserverOndersteuning;
+import com.example.aiassistent.utils.ChatsessieCounter;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -27,6 +29,8 @@ public class ChatController  {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private ObserverOndersteuning observerOndersteuning;
+    private ChatsessieCounter chatsessieCounter;
 
     @FXML
     private StackPane rootPane;
@@ -61,7 +65,13 @@ public class ChatController  {
         account.setOnAction(this::handleAccount);
         uitloggen.setOnAction(this::handleLogout);
         chatAanmaken.setOnAction(this::createChat);
+
+        observerOndersteuning = new ObserverOndersteuning();
+        chatsessieCounter = new ChatsessieCounter(observerOndersteuning);
+        observerOndersteuning.registerObserver(chatsessieCounter);
         loadChatHistory();
+        updateChatsessieCountForCurrentUser();
+
     }
 
     private void sendMessage() {
@@ -159,11 +169,21 @@ public class ChatController  {
             // Get the chatsessieID of the newly created chat session
             ArrayList<Chatsessie> chatsessies = databaseController.getChatsessies(gebruikerID);
             this.chatsessieID = chatsessies.get(chatsessies.size() - 1).getChatsessieID();
+            observerOndersteuning.incrementChatsessieCount(gebruiker);
 
             this.loadChatHistory();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    private void updateChatsessieCountForCurrentUser() {
+        DatabaseController databaseController = DatabaseController.getInstance();
+        Security security = Security.getInstance();
+        Gebruiker gebruiker = security.getActieveGebruiker();
+        int gebruikerID = gebruiker.getGebruikerID();
+
+        int chatsessieCount = databaseController.getChatsessies(gebruikerID).size();
+        observerOndersteuning.setChatsessieCount(gebruikerID, chatsessieCount);
     }
 }

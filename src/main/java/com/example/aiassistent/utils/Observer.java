@@ -1,5 +1,5 @@
 package com.example.aiassistent.utils;
 
 public interface Observer {
-    void update();
+    void update(int gebruikerID, int chatsessieCount);
 }

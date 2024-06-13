@@ -1,12 +1,16 @@
 package com.example.aiassistent.utils;
 
+import com.example.aiassistent.model.Gebruiker;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ObserverOndersteuning {
 
     private List<Observer> observers = new ArrayList<>();
-    private int chatsessieCount = 0;
+    private Map<Integer, Integer> gebruikerChatsessieCounts = new HashMap<>(); // Map gebruikerID naar chatsessieCount
 
     public void registerObserver(Observer observer) {
         observers.add(observer);
@@ -16,18 +20,24 @@ public class ObserverOndersteuning {
         observers.remove(observer);
     }
 
-    public void notifyObservers() {
+    public void notifyObservers(int gebruikerID) {
         for (Observer observer : observers) {
-            observer.update();
+            observer.update(gebruikerID, gebruikerChatsessieCounts.get(gebruikerID));
         }
     }
 
-    public void incrementChatsessieCount() {
-        chatsessieCount++;
-        notifyObservers();
+    public void incrementChatsessieCount(Gebruiker gebruiker) {
+        int gebruikerID = gebruiker.getGebruikerID();
+        gebruikerChatsessieCounts.put(gebruikerID, gebruikerChatsessieCounts.getOrDefault(gebruikerID, 0) + 1);
+        notifyObservers(gebruikerID);
     }
 
-    public int getChatsessieCount() {
-        return chatsessieCount;
+    public int getChatsessieCount(int gebruikerID) {
+        return gebruikerChatsessieCounts.getOrDefault(gebruikerID, 0);
+    }
+
+    public void setChatsessieCount(int gebruikerID, int chatsessieCount) {
+        gebruikerChatsessieCounts.put(gebruikerID, chatsessieCount);
+        notifyObservers(gebruikerID);
     }
 }

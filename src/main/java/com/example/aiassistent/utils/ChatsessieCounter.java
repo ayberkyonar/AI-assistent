@@ -9,20 +9,19 @@ public class ChatsessieCounter implements Observer {
     }
 
     @Override
-    public void update() {
-        int chatsessieCount = observerOndersteuning.getChatsessieCount();
-
-        if (chatsessieCount == 5) {
-            displayMessage("Er zijn nu 5 chatsessies aangemaakt.");
-        } else if (chatsessieCount == 10) {
-            displayMessage("Er zijn nu 10 chatsessies aangemaakt.");
-        } else if (chatsessieCount == 15) {
-            displayMessage("Er zijn nu 15 chatsessies aangemaakt.");
-        }
+    public void update(int gebruikerID, int chatsessieCount) {
+        String bericht = generateMessage(gebruikerID, chatsessieCount);
+        System.out.println(bericht);
     }
 
-    private void displayMessage(String message) {
-        // Hier kun je JavaFX-dialog of melding implementeren in plaats van System.out.println()
-        System.out.println(message);
+    public String generateMessage(int gebruikerID, int chatsessieCount) {
+        if (chatsessieCount == 5) {
+            return "Er zijn nu 5 chatsessies aangemaakt.";
+        } else if (chatsessieCount == 10) {
+            return "Er zijn nu 10 chatsessies aangemaakt.";
+        } else if (chatsessieCount == 15) {
+            return "Er zijn nu 15 chatsessies aangemaakt.";
+        }
+        return "";
     }
 }
