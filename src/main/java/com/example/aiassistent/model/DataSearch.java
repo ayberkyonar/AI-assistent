@@ -1,5 +1,6 @@
 package com.example.aiassistent.model;
 
+import com.example.aiassistent.utils.DatabaseController;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ public class DataSearch extends Antwoord {
 
     @Override
     public String maakAntwoord(String prompt) {
+        //DatabaseController.getInstance().insertAntwoordData(antwoord, "42Data",  vraagID);
         return null;
     }
 
@@ -41,13 +43,14 @@ public class DataSearch extends Antwoord {
     private List<String> zoekAntwoordInJSON(JSONObject jsonObject, String gebruikerBericht) {
         List<String> antwoorden = new ArrayList<>();
 
-        // Loop door alle entries in het JSON-object
-        for (String key : jsonObject.keySet()) {
-            String value = jsonObject.getString(key);
+        String[] words = gebruikerBericht.split("\\s+");
 
-            // Controleer of de gebruikerBericht exact overeenkomt met de key
-            if (key.equalsIgnoreCase(gebruikerBericht)) {
-                antwoorden.add(value);
+        for (String word : words) {
+            for (String key : jsonObject.keySet()) {
+                if (key.equalsIgnoreCase(word)) {
+                    String value = jsonObject.getString(key);
+                    antwoorden.add(value);
+                }
             }
         }
 

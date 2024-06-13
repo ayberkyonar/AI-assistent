@@ -2,6 +2,7 @@ package com.example.aiassistent.utils;
 
 import com.example.aiassistent.model.Chatsessie;
 import com.example.aiassistent.model.Gebruiker;
+import com.example.aiassistent.model.Vraag;
 
 import java.sql.*;
 
@@ -170,6 +171,7 @@ public class DatabaseController {
         }
         return gebruikers;
     }
+
     public static void insertChatsessieData(Gebruiker gebruiker, String onderwerp) {
 
         Connection connection = DatabaseController.getInstance().getConnection();
@@ -232,6 +234,7 @@ public class DatabaseController {
             System.out.println("Error updating gebruiker: " + e);
         }
     }
+
     public Gebruiker getGebruikerById(int gebruikerID) {
         Gebruiker gebruiker = null;
         try {
@@ -250,7 +253,59 @@ public class DatabaseController {
         }
         return gebruiker;
     }
+
+    public ArrayList<Vraag> getVragen(int chatsessieID) {
+        ArrayList<Vraag> vragen = new ArrayList<>();
+        Connection connection = getConnection();
+
+        try {
+            String query = "SELECT * FROM vraag WHERE chatsessieID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, chatsessieID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int vraagID = resultSet.getInt("vraagID");
+                String vraagTekst = resultSet.getString("vraag");
+                Vraag vraag = new Vraag(vraagID, vraagTekst,chatsessieID);
+                vragen.add(vraag);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error fetching vragen: " + e);
+        }
+
+        return vragen;
+    }
+
+
+    public void insertVraagData(String vraag, int chatsessieID) {
+        try {
+            String query = "INSERT INTO vraag (vraag, chatsessieID) VALUES (?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, vraag);
+            preparedStatement.setInt(2, chatsessieID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error inserting vraag: " + e);
+        }
+    }
+
+    public void insertAntwoordData(String antwoord, String herkomst, int vraagID) {
+        try {
+            String query = "INSERT INTO antwoord (tekst, herkomst, vraagID) VALUES (?, ? , ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, antwoord);
+            preparedStatement.setString(2, herkomst);
+            preparedStatement.setInt(3, vraagID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error inserting antwoord: " + e);
+        }
+    }
+
 }
+
 /*
     // Delete later:
     public static void main(String[] args) {
