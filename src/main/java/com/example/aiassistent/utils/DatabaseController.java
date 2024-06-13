@@ -12,6 +12,7 @@ import java.util.Properties;
 import java.security.MessageDigest;
 import java.nio.charset.StandardCharsets;
 import java.math.BigInteger;
+import com.example.aiassistent.utils.Security;
 
 public class DatabaseController {
 
@@ -96,12 +97,12 @@ public class DatabaseController {
             statement.executeUpdate("CREATE TABLE `vraag` (" +
                     "`vraagID` INT AUTO_INCREMENT PRIMARY KEY, " +
                     "`chatsessieID` INT NOT NULL, " +
-                    "`vraag` varchar(255) NOT NULL, " +
+                    "`vraag` TEXT, " +
                     "FOREIGN KEY (`chatsessieID`) REFERENCES `chatsessie`(`chatsessieID`))");
 
             statement.executeUpdate("CREATE TABLE `antwoord` (" +
                     "`antwoordID` INT AUTO_INCREMENT PRIMARY KEY, " +
-                    "`tekst` varchar(255), " +
+                    "`tekst` TEXT, " +
                     "`herkomst` varchar(255), " +
                     "`vraagID` INT NOT NULL, " +
                     "FOREIGN KEY (`vraagID`) REFERENCES `vraag`(`vraagID`))");
@@ -207,6 +208,44 @@ public class DatabaseController {
             System.out.println("Error fetching chatsessies: " + e);
         }
         return chatsessies;
+    }
+
+    public static Chatsessie getChatsessie(int chatsessieID) {
+        Connection connection = DatabaseController.getInstance().getConnection();
+        Chatsessie chatsessie = null;
+
+        try {
+            String query = "SELECT * FROM chatsessie WHERE chatsessieID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, chatsessieID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int gebruikerID = resultSet.getInt("gebruikerID");
+                String onderwerp = resultSet.getString("onderwerp");
+                chatsessie = new Chatsessie(chatsessieID, gebruikerID, onderwerp);
+            }
+        } catch (Exception e) {
+            System.out.println("Error fetching chatsessie: " + e);
+        }
+        return chatsessie;
+    }
+
+    public static void updateChatsessieData(Chatsessie chatsessie) {
+        DatabaseController databaseController = DatabaseController.getInstance();
+        Connection connection = databaseController.getConnection();
+
+        int chatsessieID = chatsessie.getChatsessieID();
+        String onderwerp = chatsessie.getOnderwerp();
+
+        try {
+            String query = "UPDATE chatsessie SET onderwerp = ? WHERE chatsessieID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, onderwerp);
+            preparedStatement.setInt(2, chatsessieID);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error updating data: " + e);
+        }
     }
 
     private static Properties readConfig() {
@@ -349,6 +388,31 @@ public class DatabaseController {
             System.out.println("Error updating antwoord: " + e);
         }
 
+        return antwoord;
+    }
+
+    public Antwoord getAntwoord(int vraagID) {
+        Antwoord antwoord = null;
+        try {
+            String query = "SELECT * FROM antwoord WHERE vraagID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, vraagID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int antwoordID = resultSet.getInt("antwoordID");
+                String tekst = resultSet.getString("tekst");
+                String herkomst = resultSet.getString("herkomst");
+
+                if (herkomst.equals("42AI")) {
+                    antwoord = new AISearch(antwoordID, tekst, vraagID);
+                } else if (herkomst.equals("42Data")) {
+                    antwoord = new DataSearch(antwoordID, tekst, vraagID);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching antwoord: " + e);
+            e.printStackTrace(); // Add this line to print the stack trace
+        }
         return antwoord;
     }
 

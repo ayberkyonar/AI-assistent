@@ -1,8 +1,6 @@
 package com.example.aiassistent;
 
-import com.example.aiassistent.model.Chatsessie;
-import com.example.aiassistent.model.Gebruiker;
-import com.example.aiassistent.model.Vraag;
+import com.example.aiassistent.model.*;
 import com.example.aiassistent.utils.DatabaseController;
 import com.example.aiassistent.utils.Security;
 import javafx.fxml.FXML;
@@ -17,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import com.example.aiassistent.model.DataSearch;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -76,10 +73,32 @@ public class ChatController {
         String message = messageField.getText();
         if (!message.isEmpty()) {
             DatabaseController databaseController = DatabaseController.getInstance();
+
+            // Nodig om onderwerp te veranderen
+            ArrayList<Vraag> vragen = databaseController.getVragen(this.chatsessieID);
+            Chatsessie chatsessie = databaseController.getChatsessie(this.chatsessieID);
+
             Vraag vraag = databaseController.insertVraagData(message, chatsessieID);
+
+            System.out.println("Message sent: " + message);
+
+            // Onderwerp veranderen
+            if (vragen.isEmpty()) {
+
+                String prompt = vraag.getPrompt();
+                if (prompt.length() > 20) {
+                    prompt = prompt.substring(0, 20);
+                }
+
+                chatsessie.setOnderwerp(prompt);
+                DatabaseController.updateChatsessieData(chatsessie);
+            }
 
             vraag.createAntwoord();
         }
+
+        loadChat();
+        loadChatHistory();
     }
     private void loadChat(){
         chatArea.clear();
@@ -91,6 +110,11 @@ public class ChatController {
 
         for (Vraag vraag : vragen) {
             chatArea.appendText(gebruiker.getNaam() + ": " + vraag.getPrompt() + "\n");
+
+            Antwoord antwoord = databaseController.getAntwoord(vraag.getVraagID());
+            if (antwoord != null) {
+                chatArea.appendText(antwoord.getHerkomst() + ": " + antwoord.getTekst() + "\n");
+            }
         }
     }
 
