@@ -36,9 +36,7 @@ abstract public class Antwoord {
         this.vraagID = vraagID;
     }
 
-    public String getHerkomst() {
-        return "Antwoord";
-    }
+    abstract public String getHerkomst();
 
     abstract public String maakAntwoord(String prompt);
     abstract public boolean checkAntwoord(String tekst);

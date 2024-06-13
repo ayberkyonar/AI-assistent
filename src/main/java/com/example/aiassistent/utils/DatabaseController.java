@@ -1,8 +1,6 @@
 package com.example.aiassistent.utils;
 
-import com.example.aiassistent.model.Chatsessie;
-import com.example.aiassistent.model.Gebruiker;
-import com.example.aiassistent.model.Vraag;
+import com.example.aiassistent.model.*;
 
 import java.sql.*;
 
@@ -14,6 +12,7 @@ import java.util.Properties;
 import java.security.MessageDigest;
 import java.nio.charset.StandardCharsets;
 import java.math.BigInteger;
+import com.example.aiassistent.utils.Security;
 
 public class DatabaseController {
 
@@ -30,13 +29,11 @@ public class DatabaseController {
 
         try {
 
-            // Check if the database exists
             if (!databaseExists(url, databaseName, username, password)) {
                 createDatabase(url, databaseName, username, password);
                 createTables(url, databaseName, username, password);
             }
 
-            // Connect to database
             connection = DriverManager.getConnection(url + databaseName, username, password);
 
 
@@ -98,13 +95,13 @@ public class DatabaseController {
             statement.executeUpdate("CREATE TABLE `vraag` (" +
                     "`vraagID` INT AUTO_INCREMENT PRIMARY KEY, " +
                     "`chatsessieID` INT NOT NULL, " +
-                    "`vraag` varchar(255) NOT NULL, " +
+                    "`vraag` TEXT, " +
                     "FOREIGN KEY (`chatsessieID`) REFERENCES `chatsessie`(`chatsessieID`))");
 
             statement.executeUpdate("CREATE TABLE `antwoord` (" +
                     "`antwoordID` INT AUTO_INCREMENT PRIMARY KEY, " +
-                    "`tekst` varchar(255) NOT NULL, " +
-                    "`herkomst` varchar(255) NOT NULL, " +
+                    "`tekst` TEXT, " +
+                    "`herkomst` varchar(255), " +
                     "`vraagID` INT NOT NULL, " +
                     "FOREIGN KEY (`vraagID`) REFERENCES `vraag`(`vraagID`))");
 
@@ -132,6 +129,24 @@ public class DatabaseController {
             return hexString.toString();
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean checkAvailableEmail(String email) {
+        Connection connection = DatabaseController.getInstance().getConnection();
+        try {
+            String query = "SELECT email FROM gebruiker WHERE email = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error checking email availability: " + e);
+            return false;
         }
     }
 
@@ -211,6 +226,44 @@ public class DatabaseController {
         return chatsessies;
     }
 
+    public static Chatsessie getChatsessie(int chatsessieID) {
+        Connection connection = DatabaseController.getInstance().getConnection();
+        Chatsessie chatsessie = null;
+
+        try {
+            String query = "SELECT * FROM chatsessie WHERE chatsessieID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, chatsessieID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int gebruikerID = resultSet.getInt("gebruikerID");
+                String onderwerp = resultSet.getString("onderwerp");
+                chatsessie = new Chatsessie(chatsessieID, gebruikerID, onderwerp);
+            }
+        } catch (Exception e) {
+            System.out.println("Error fetching chatsessie: " + e);
+        }
+        return chatsessie;
+    }
+
+    public static void updateChatsessieData(Chatsessie chatsessie) {
+        DatabaseController databaseController = DatabaseController.getInstance();
+        Connection connection = databaseController.getConnection();
+
+        int chatsessieID = chatsessie.getChatsessieID();
+        String onderwerp = chatsessie.getOnderwerp();
+
+        try {
+            String query = "UPDATE chatsessie SET onderwerp = ? WHERE chatsessieID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, onderwerp);
+            preparedStatement.setInt(2, chatsessieID);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error updating data: " + e);
+        }
+    }
+
     private static Properties readConfig() {
         Properties properties = new Properties();
         try (FileInputStream input = new FileInputStream(".env")) {
@@ -279,29 +332,104 @@ public class DatabaseController {
     }
 
 
-    public void insertVraagData(String vraag, int chatsessieID) {
+    public Vraag insertVraagData(String vraag, int chatsessieID) {
+        int vraagID = 0;
         try {
             String query = "INSERT INTO vraag (vraag, chatsessieID) VALUES (?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, vraag);
             preparedStatement.setInt(2, chatsessieID);
             preparedStatement.executeUpdate();
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                vraagID = generatedKeys.getInt(1);
+            }
         } catch (SQLException e) {
             System.out.println("Error inserting vraag: " + e);
         }
+
+        return new Vraag(vraagID, vraag, chatsessieID);
     }
 
-    public void insertAntwoordData(String antwoord, String herkomst, int vraagID) {
+    public Antwoord insertAntwoordData(String antwoord, String herkomst, Vraag vraag) {
+        int vraagID = vraag.getVraagID();
+        int antwoordID = 0;
         try {
             String query = "INSERT INTO antwoord (tekst, herkomst, vraagID) VALUES (?, ? , ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, antwoord);
             preparedStatement.setString(2, herkomst);
             preparedStatement.setInt(3, vraagID);
             preparedStatement.executeUpdate();
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                antwoordID = generatedKeys.getInt(1);
+            }
         } catch (SQLException e) {
             System.out.println("Error inserting antwoord: " + e);
         }
+
+        AISearch aiSearch = new AISearch(antwoordID, antwoord, vraagID);
+        String aiAntwoord = aiSearch.maakAntwoord(vraag.getPrompt());
+        if (aiAntwoord != null) {
+            aiSearch.setTekst(aiAntwoord);
+            return aiSearch;
+        }
+
+        DataSearch dataSearch = new DataSearch(antwoordID, antwoord, vraagID);
+        String dataAntwoord = dataSearch.maakAntwoord(vraag.getPrompt());
+        if (dataAntwoord != null) {
+            dataSearch.setTekst(dataAntwoord);
+            return dataSearch;
+        }
+
+        return null;
+    }
+
+    public Antwoord updateAntwoord (Antwoord antwoord) {
+
+        System.out.println(antwoord.getAntwoordID());
+
+        try {
+            String query = "UPDATE antwoord SET tekst = ?, herkomst = ?, vraagID = ? WHERE antwoordID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, antwoord.getTekst());
+            preparedStatement.setString(2, antwoord.getHerkomst());
+            preparedStatement.setInt(3, antwoord.getVraagID());
+            preparedStatement.setInt(4, antwoord.getAntwoordID());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error updating antwoord: " + e);
+        }
+
+        return antwoord;
+    }
+
+    public Antwoord getAntwoord(int vraagID) {
+        Antwoord antwoord = null;
+        try {
+            String query = "SELECT * FROM antwoord WHERE vraagID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, vraagID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int antwoordID = resultSet.getInt("antwoordID");
+                String tekst = resultSet.getString("tekst");
+                String herkomst = resultSet.getString("herkomst");
+
+                if (herkomst.equals("42AI")) {
+                    antwoord = new AISearch(antwoordID, tekst, vraagID);
+                } else if (herkomst.equals("42Data")) {
+                    antwoord = new DataSearch(antwoordID, tekst, vraagID);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching antwoord: " + e);
+            e.printStackTrace(); // Add this line to print the stack trace
+        }
+        return antwoord;
     }
 
 }
