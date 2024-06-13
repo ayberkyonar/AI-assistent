@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<StackPane style="-fx-background-color: #0a192f; -fx-padding: 20;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aiassistent.ChatController">
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane style="-fx-background-color: #0a192f; -fx-padding: 20;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.aiassistent.ChatController">
     <!-- Knoppen "Uitloggen" en "Account" -->
     <VBox alignment="TOP_RIGHT" spacing="10" style="-fx-padding: 10;">
         <!-- Placeholder для корректного отображения структуры -->
@@ -21,9 +16,9 @@
     <HBox>
         <!-- Deel met chatgeschiedenis -->
         <VBox alignment="CENTER_LEFT" fillWidth="false" prefHeight="54.0" prefWidth="230.0" style="-fx-background-color: #0a192f;">
-            <TextArea fx:id="chatHistoryArea" editable="false" prefHeight="354.0" prefWidth="210.0" promptText="Vorige sessies..." style="-fx-background-color: #0a192f; -fx-text-fill: #d1d5db; -fx-font-size: 16px;" VBox.vgrow="ALWAYS">
+            <TextArea fx:id="chatHistoryArea" editable="false" prefHeight="402.0" prefWidth="210.0" promptText="Vorige sessies..." style="-fx-background-color: #0a192f; -fx-text-fill: #d1d5db; -fx-font-size: 16px;" VBox.vgrow="ALWAYS">
                 <padding>
-                    <Insets bottom="50.0" top="50.0" />
+                    <Insets bottom="51.0" top="52.0" />
                 </padding>
             </TextArea>
             <HBox.margin>
@@ -33,42 +28,50 @@
         <!-- Deel met chatinterface -->
         <VBox alignment="CENTER" spacing="10" HBox.hgrow="ALWAYS">
             <HBox alignment="TOP_RIGHT" prefHeight="18.0" prefWidth="249.0" spacing="10">
-                <ImageView fitHeight="43.0" fitWidth="40.0" layoutX="100.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="42.0" fitWidth="105.0" layoutX="100.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../../images/42bv.png" />
                     </image>
                 </ImageView>
-                <Button fx:id="account" prefHeight="40.0" prefWidth="72.0" styleClass="button-primary" text="Account" />
-                <Button fx:id="uitloggen" prefHeight="39.0" prefWidth="83.0" styleClass="button-primary" text="Uitloggen" />
+                <Button fx:id="account" prefHeight="40.0" prefWidth="88.0" styleClass="button-primary" text="Account">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
+                <Button fx:id="uitloggen" prefHeight="39.0" prefWidth="100.0" styleClass="button-primary" text="Uitloggen">
+               <font>
+                  <Font size="15.0" />
+               </font></Button>
             </HBox>
             <VBox spacing="5" VBox.vgrow="ALWAYS">
-                <TextArea fx:id="chatArea" prefHeight="402.0" prefWidth="727.0" promptText="Chatberichten..." style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-font-size: 16px;" VBox.vgrow="ALWAYS">
+                <TextArea fx:id="chatArea" editable="false" prefHeight="402.0" prefWidth="756.0" promptText="Chatberichten..." style="-fx-font-size: 16px; -fx-text-color: black;" VBox.vgrow="ALWAYS">
                     <effect>
-                        <ColorAdjust />
+                  <ColorAdjust />
                     </effect>
                 </TextArea>
             </VBox>
             <HBox spacing="10">
-
-                <TextField fx:id="messageField" prefHeight="34.0" prefWidth="656.0" promptText="Typ uw bericht.." style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-font-size: 16px;" HBox.hgrow="ALWAYS" />
-                <Button fx:id="verzend" minHeight="28.0" prefHeight="40.0" prefWidth="90.0" style="-fx-font-size: 16px; -fx-min-height: 40px;" styleClass="button-primary" text="Verzend" />
+                <TextField fx:id="messageField" prefHeight="41.0" prefWidth="656.0" promptText="Typ uw bericht.." style="-fx-background-color: #1e3a8a; -fx-text-fill: #d1d5db; -fx-font-size: 16px;" HBox.hgrow="ALWAYS" />
+                <Button fx:id="verzend" prefHeight="40.0" prefWidth="90.0" style="-fx-font-size: 16px; -fx-min-height: 40px;" styleClass="button-primary" text="Verzend">
+               <font>
+                  <Font size="11.0" />
+               </font></Button>
             </HBox>
         </VBox>
     </HBox>
-    <Button fx:id="chatAanmaken" prefHeight="36.0" prefWidth="211.0" styleClass="button-primary" text="Chat Aanmaken" StackPane.alignment="BOTTOM_LEFT">
+    <Button fx:id="chatAanmaken" prefHeight="40.0" prefWidth="210.0" styleClass="button-primary" text="Chat Aanmaken" StackPane.alignment="BOTTOM_LEFT">
         <StackPane.margin>
-            <Insets bottom="3.0" right="15.0"/>
+            <Insets bottom="1.0" right="15.0" />
         </StackPane.margin>
         <font>
-            <Font size="14.0"/>
+            <Font size="15.0" />
         </font>
     </Button>
-    <Label prefHeight="28.0" prefWidth="155.0" text="Geschiedenis" textFill="WHITE" StackPane.alignment="TOP_LEFT">
+    <Label prefHeight="28.0" prefWidth="155.0" style="-fx-font-size: 16px; -fx-text-color: black;" text="Geschiedenis" textFill="WHITE" StackPane.alignment="TOP_LEFT">
         <StackPane.margin>
-            <Insets right="1.0" top="11.0"/>
+            <Insets right="1.0" top="11.0" />
         </StackPane.margin>
         <font>
-            <Font name="System Bold" size="20.0"/>
+            <Font name="System Bold" size="20.0" />
         </font>
     </Label>
 </StackPane>

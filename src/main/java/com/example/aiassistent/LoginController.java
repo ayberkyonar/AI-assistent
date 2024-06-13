@@ -42,13 +42,13 @@ public class LoginController {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        // Пытаемся войти в систему
-        Gebruiker currentUser = Security.getInstance().login(email, password);
+        Security security = Security.getInstance();
+        Gebruiker currentUser = security.login(email, password);
+
         if (currentUser != null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/aiassistent/chat.fxml"));
             Parent root = loader.load();
             ChatController controller = loader.getController();
-            controller.setGebruiker(currentUser);
 
             Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             primaryStage.setScene(new Scene(root, 1280, 720));
