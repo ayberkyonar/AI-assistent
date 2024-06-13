@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -20,6 +22,20 @@
         <BorderPane>
             <top>
                 <HBox alignment="TOP_RIGHT" spacing="10" BorderPane.alignment="CENTER_RIGHT">
+
+                    <MenuButton fx:id="TaalKnop" alignment="CENTER" layoutX="345.0" layoutY="90.0" popupSide="LEFT" prefHeight="40.0" prefWidth="70.0" style="-fx-background-color: #1e3a8a;" text="Taal" textFill="WHITE" StackPane.alignment="TOP_LEFT">
+                        <items>
+                            <MenuItem fx:id="nederlandsItem" text="Nederlands" onAction="#selectLanguageNederlands"/>
+                            <MenuItem fx:id="englishItem" text="English" onAction="#selectLanguageEnglish"/>
+                        </items>
+                        <font>
+                            <Font name="System Bold" size="15.0" />
+                        </font>
+                        <StackPane.margin>
+                            <Insets left="230.0" />
+                        </StackPane.margin>
+                    </MenuButton>
+
                     <padding>
                         <Insets bottom="10" left="10" right="10" top="10" />
                     </padding>

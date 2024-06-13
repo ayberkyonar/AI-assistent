@@ -1,6 +1,7 @@
 package com.example.aiassistent.model;
 
 import com.example.aiassistent.utils.DatabaseController;
+import com.example.aiassistent.utils.Security;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataSearch extends Antwoord {
-    private static final String JSON_FILE = "src/main/java/com/example/aiassistent/utils/package.json";
+    private static final String JSON_FILE = "src/main/java/com/example/aiassistent/utils/nederlands.json";
 
 
     public DataSearch(int antwoordID, String tekst, int vraagID) {
@@ -37,8 +38,17 @@ public class DataSearch extends Antwoord {
     }
 
     public ArrayList<String> zoekAntwoord(String gebruikerBericht) {
+        Security security = Security.getInstance();
+        Gebruiker gebruiker = security.getActieveGebruiker();
+
+        String currentLanguage = gebruiker.getTaal();
+
         // Lees het JSON-bestand
-        String jsonContent = readFile(JSON_FILE);
+        String JSON_FILE_NEDERLANDS = "src/main/java/com/example/aiassistent/utils/nederlands.json";
+        String JSON_FILE_ENGLISH = "src/main/java/com/example/aiassistent/utils/engels.json";
+        String jsonFile = (currentLanguage.equals("Nederlands")) ? JSON_FILE_NEDERLANDS : JSON_FILE_ENGLISH;
+
+        String jsonContent = readFile(jsonFile);
         JSONObject jsonObject = new JSONObject(jsonContent);
 
         // Zoek naar een overeenkomstig antwoord
