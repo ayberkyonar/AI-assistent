@@ -22,7 +22,7 @@ import com.example.aiassistent.model.DataSearch;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ChatController {
+public class ChatController  {
 
     private Stage stage;
     private Scene scene;
