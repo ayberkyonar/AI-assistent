@@ -132,6 +132,24 @@ public class DatabaseController {
         }
     }
 
+    public static boolean checkAvailableEmail(String email) {
+        Connection connection = DatabaseController.getInstance().getConnection();
+        try {
+            String query = "SELECT email FROM gebruiker WHERE email = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error checking email availability: " + e);
+            return false;
+        }
+    }
+
     private static void insertGebruikerData(Connection connection, String naam, String email, String wachtwoord) {
         try {
             String hashedPassword = hashWachtwoord(wachtwoord);
