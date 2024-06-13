@@ -5,9 +5,11 @@ public class Vraag {
     private String prompt;
     private int chatsessieID;
 
-    public Vraag(int vraagID, String prompt) {
+    public Vraag(int vraagID, String prompt,int chatsessieID
+    ) {
         this.vraagID = vraagID;
         this.prompt = prompt;
+        this.chatsessieID= chatsessieID;
     }
 
     public int getVraagID() {
