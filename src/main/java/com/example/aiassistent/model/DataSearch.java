@@ -20,7 +20,7 @@ public class DataSearch extends Antwoord {
     @Override
     public String maakAntwoord(String prompt) {
         //DatabaseController.getInstance().insertAntwoordData(antwoord, "42Data",  vraagID);
-        return null;
+        return "antwoord";
     }
 
     @Override

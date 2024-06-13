@@ -75,7 +75,10 @@ public class ChatController {
         }
         String message = messageField.getText();
         if (!message.isEmpty()) {
-            DatabaseController.getInstance().insertVraagData(message, chatsessieID);
+            DatabaseController databaseController = DatabaseController.getInstance();
+            Vraag vraag = databaseController.insertVraagData(message, chatsessieID);
+
+            vraag.createAntwoord();
         }
     }
     private void loadChat(){
