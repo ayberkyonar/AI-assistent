@@ -18,9 +18,17 @@ public class DataSearch extends Antwoord {
     }
 
     @Override
+    public String getHerkomst() {
+        return "42Data";
+    }
+
+    @Override
     public String maakAntwoord(String prompt) {
-        //DatabaseController.getInstance().insertAntwoordData(antwoord, "42Data",  vraagID);
-        return null;
+
+        ArrayList<String> antwoorden = zoekAntwoord(prompt);
+        String antwoord = String.join(" \n", antwoorden);
+
+        return antwoord;
     }
 
     @Override
@@ -28,23 +36,24 @@ public class DataSearch extends Antwoord {
         return false;
     }
 
-    public List<String> zoekAntwoord(String gebruikerBericht) {
+    public ArrayList<String> zoekAntwoord(String gebruikerBericht) {
         // Lees het JSON-bestand
         String jsonContent = readFile(JSON_FILE);
-
-        // Parse het JSON-bestand
         JSONObject jsonObject = new JSONObject(jsonContent);
 
         // Zoek naar een overeenkomstig antwoord
-        List<String> antwoorden = zoekAntwoordInJSON(jsonObject, gebruikerBericht);
+        ArrayList<String> antwoorden = zoekAntwoordInJSON(jsonObject, gebruikerBericht);
 
         return antwoorden;
     }
 
-    private List<String> zoekAntwoordInJSON(JSONObject jsonObject, String gebruikerBericht) {
-        List<String> antwoorden = new ArrayList<>();
+    private ArrayList<String> zoekAntwoordInJSON(JSONObject jsonObject, String gebruikerBericht) {
+        ArrayList<String> antwoorden = new ArrayList<>();
 
-        String[] words = gebruikerBericht.split("\\s+");
+        // Verwijder leestekens
+        String cleanedBericht = gebruikerBericht.replaceAll("[.,!?\"':;()\\[\\]{}<>]", "");
+
+        String[] words = cleanedBericht.split("\\s+");
 
         for (String word : words) {
             for (String key : jsonObject.keySet()) {
@@ -63,7 +72,7 @@ public class DataSearch extends Antwoord {
             return Files.readString(Paths.get(filePath));
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
-            return "{}"; // Return an empty JSON object if there's an error
+            return "{}";
         }
     }
 }

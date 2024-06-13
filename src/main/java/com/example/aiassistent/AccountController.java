@@ -74,6 +74,18 @@ public class AccountController {
             return;
         }
 
+        DatabaseController databaseController = DatabaseController.getInstance();
+        boolean checkAvailableEmail = DatabaseController.checkAvailableEmail(newEmail);
+        if (!checkAvailableEmail) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Waarschuwing");
+            alert.setHeaderText(null);
+            alert.setContentText("E-mail is al in gebruik!");
+
+            alert.showAndWait();
+            return;
+        }
+
         String hashedPassword = DatabaseController.hashWachtwoord(newPassword);
 
         Gebruiker newGebruiker = new Gebruiker(gebruiker.getGebruikerID(), newUsername, newEmail, hashedPassword);

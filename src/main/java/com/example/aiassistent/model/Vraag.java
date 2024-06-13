@@ -1,5 +1,7 @@
 package com.example.aiassistent.model;
 
+import com.example.aiassistent.utils.DatabaseController;
+
 public class Vraag {
     private int vraagID;
     private String prompt;
@@ -10,6 +12,17 @@ public class Vraag {
         this.vraagID = vraagID;
         this.prompt = prompt;
         this.chatsessieID= chatsessieID;
+    }
+
+    public void createAntwoord (){
+
+        DatabaseController databaseController = DatabaseController.getInstance();
+        Antwoord antwoord = databaseController.insertAntwoordData( null, null, this);
+
+        if (antwoord != null) {
+            antwoord = databaseController.updateAntwoord(antwoord);
+        }
+
     }
 
     public int getVraagID() {

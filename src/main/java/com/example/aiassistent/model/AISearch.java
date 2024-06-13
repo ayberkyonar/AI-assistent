@@ -6,7 +6,12 @@ public class AISearch extends Antwoord {
             super(antwoordID, tekst, vraagID);
         }
 
-        @Override
+    @Override
+    public String getHerkomst() {
+        return "42AI";
+    }
+
+    @Override
         public String maakAntwoord(String prompt) {
             return null;
 
