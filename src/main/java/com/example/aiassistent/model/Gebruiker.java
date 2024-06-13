@@ -52,7 +52,7 @@ public class Gebruiker implements Observer{
     }
 
     @Override
-    public void update() {
+    public void update(int gebruikerID, int chatsessieCount) {
 
     }
 

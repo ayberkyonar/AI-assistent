@@ -39,8 +39,6 @@ public class DataSearch extends Antwoord {
     public ArrayList<String> zoekAntwoord(String gebruikerBericht) {
         // Lees het JSON-bestand
         String jsonContent = readFile(JSON_FILE);
-
-        // Parse het JSON-bestand
         JSONObject jsonObject = new JSONObject(jsonContent);
 
         // Zoek naar een overeenkomstig antwoord
@@ -74,7 +72,7 @@ public class DataSearch extends Antwoord {
             return Files.readString(Paths.get(filePath));
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
-            return "{}"; // Return an empty JSON object if there's an error
+            return "{}";
         }
     }
 }

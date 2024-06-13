@@ -29,13 +29,11 @@ public class DatabaseController {
 
         try {
 
-            // Check if the database exists
             if (!databaseExists(url, databaseName, username, password)) {
                 createDatabase(url, databaseName, username, password);
                 createTables(url, databaseName, username, password);
             }
 
-            // Connect to database
             connection = DriverManager.getConnection(url + databaseName, username, password);
 
 

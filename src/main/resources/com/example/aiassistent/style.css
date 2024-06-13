@@ -12,3 +12,7 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+
+.scroll-pane .viewport {
+    -fx-background-color: #0a192f;
+}
