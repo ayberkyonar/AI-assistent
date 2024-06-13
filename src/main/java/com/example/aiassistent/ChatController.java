@@ -109,7 +109,13 @@ public class ChatController  {
 
         loadChat();
         loadChatHistory();
+        clearInput();
     }
+
+    private void clearInput() {
+        messageField.clear();
+    }
+
     private void loadChat(){
         chatArea.clear();
         Security security = Security.getInstance();
