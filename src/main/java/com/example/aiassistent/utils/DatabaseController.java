@@ -297,26 +297,6 @@ public class DatabaseController {
         }
     }
 
-    public Gebruiker getGebruikerById(int gebruikerID) {
-        Gebruiker gebruiker = null;
-        try {
-            String query = "SELECT * FROM gebruiker WHERE gebruikerID = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, gebruikerID);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                String naam = resultSet.getString("naam");
-                String email = resultSet.getString("email");
-                String wachtwoord = resultSet.getString("wachtwoord");
-                String taal = resultSet.getString("taal");
-                gebruiker = new Gebruiker(gebruikerID, naam, email, wachtwoord, taal);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error fetching gebruiker: " + e);
-        }
-        return gebruiker;
-    }
-
     public ArrayList<Vraag> getVragen(int chatsessieID) {
         ArrayList<Vraag> vragen = new ArrayList<>();
         Connection connection = getConnection();
@@ -443,12 +423,3 @@ public class DatabaseController {
     }
 
 }
-
-/*
-    // Delete later:
-    public static void main(String[] args) {
-
-        DatabaseController databaseController = DatabaseController.getInstance();
-        Connection connection = databaseController.getConnection();
-
-    }*/

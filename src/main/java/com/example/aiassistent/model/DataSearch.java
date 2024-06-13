@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataSearch extends Antwoord {
-    private static final String JSON_FILE = "src/main/java/com/example/aiassistent/utils/nederlands.json";
-
 
     public DataSearch(int antwoordID, String tekst, int vraagID) {
         super(antwoordID, tekst, vraagID);
@@ -25,7 +23,6 @@ public class DataSearch extends Antwoord {
 
     @Override
     public String maakAntwoord(String prompt) {
-
         ArrayList<String> antwoorden = zoekAntwoord(prompt);
         String antwoord = String.join(" \n", antwoorden);
 
@@ -85,8 +82,6 @@ public class DataSearch extends Antwoord {
                 antwoorden.add("Sorry, I don't understand your question. Could you phrase it differently?");
             }
         }
-
-
 
         return antwoorden;
     }

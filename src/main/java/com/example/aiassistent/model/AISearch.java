@@ -2,7 +2,7 @@ package com.example.aiassistent.model;
 
 public class AISearch extends Antwoord {
 
-        public AISearch(int antwoordID, String tekst, int vraagID) {
+    public AISearch(int antwoordID, String tekst, int vraagID) {
             super(antwoordID, tekst, vraagID);
         }
 
@@ -12,13 +12,12 @@ public class AISearch extends Antwoord {
     }
 
     @Override
-        public String maakAntwoord(String prompt) {
-            return null;
+    public String maakAntwoord(String prompt) {
+        return null;
+    }
 
-        }
-
-        @Override
-        public boolean checkAntwoord(String tekst) {
-            return false;
-        }
+    @Override
+    public boolean checkAntwoord(String tekst) {
+        return false;
+    }
 }

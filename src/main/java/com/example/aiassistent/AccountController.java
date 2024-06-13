@@ -20,18 +20,11 @@ import java.io.IOException;
 public class AccountController {
 
     private Stage stage;
-    private Scene scene;
     private Parent root;
     private Gebruiker gebruiker;
 
     @FXML
     private MenuButton TaalKnop;
-
-    @FXML
-    private MenuItem nederlandsItem;
-
-    @FXML
-    private MenuItem englishItem;
 
     @FXML
     private TextField emailField;
