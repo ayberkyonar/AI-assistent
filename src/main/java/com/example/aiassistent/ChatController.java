@@ -49,7 +49,8 @@ public class ChatController {
 
     @FXML
     private Button uitloggen;
-    
+
+    private int chatsessieID;
 
     @FXML
     private void initialize() {
@@ -71,6 +72,7 @@ public class ChatController {
         String message = messageField.getText();
         if (!message.isEmpty()) {
             DataSearch dataSearch = new DataSearch(0, "", 0); // Initialize DataSearch object
+            DatabaseController.getInstance().insertVraagData(message, chatsessieID);
             String antwoord = String.valueOf(dataSearch.zoekAntwoord(message));
             chatArea.appendText(gebruiker.getNaam() + ": " + message + "\n");
             chatArea.appendText("AI: " + antwoord + "\n");
@@ -124,9 +126,7 @@ public class ChatController {
     }
 
     private void createChat(ActionEvent event) {
-
         try {
-
             DatabaseController databaseController = DatabaseController.getInstance();
             Security security = Security.getInstance();
 
@@ -135,11 +135,14 @@ public class ChatController {
 
             databaseController.insertChatsessieData(gebruiker, "test onderwerp");
 
+            // Get the chatsessieID of the newly created chat session
+            ArrayList<Chatsessie> chatsessies = databaseController.getChatsessies(gebruikerID);
+            this.chatsessieID = chatsessies.get(chatsessies.size() - 1).getChatsessieID();
+
             this.loadChatHistory();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

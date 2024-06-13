@@ -170,6 +170,7 @@ public class DatabaseController {
         }
         return gebruikers;
     }
+
     public static void insertChatsessieData(Gebruiker gebruiker, String onderwerp) {
 
         Connection connection = DatabaseController.getInstance().getConnection();
@@ -232,6 +233,7 @@ public class DatabaseController {
             System.out.println("Error updating gebruiker: " + e);
         }
     }
+
     public Gebruiker getGebruikerById(int gebruikerID) {
         Gebruiker gebruiker = null;
         try {
@@ -250,7 +252,20 @@ public class DatabaseController {
         }
         return gebruiker;
     }
+
+    public void insertVraagData(String vraag, int chatsessieID) {
+        try {
+            String query = "INSERT INTO vraag (vraag, chatsessieID) VALUES (?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, vraag);
+            preparedStatement.setInt(2, chatsessieID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error inserting vraag: " + e);
+        }
+    }
 }
+
 /*
     // Delete later:
     public static void main(String[] args) {
