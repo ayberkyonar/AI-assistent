@@ -46,6 +46,7 @@ public class LoginController {
         Gebruiker currentUser = security.login(email, password);
 
         if (currentUser != null) {
+            currentUser.logGebruiker();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/aiassistent/chat.fxml"));
             Parent root = loader.load();
             ChatController controller = loader.getController();

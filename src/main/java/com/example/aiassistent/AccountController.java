@@ -112,7 +112,7 @@ public class AccountController {
     @FXML
     private void selectLanguageNederlands(ActionEvent event) {
         System.out.println("Nederlands geselecteerd");
-        TaalKnop.setText("Nederlands");
+        TaalKnop.setText("NL");
 
         Security security = Security.getInstance();
         Gebruiker gebruiker = security.getActieveGebruiker();
@@ -125,7 +125,7 @@ public class AccountController {
     @FXML
     private void selectLanguageEnglish(ActionEvent event) {
         System.out.println("English selected");
-        TaalKnop.setText("English");
+        TaalKnop.setText("ENG");
 
         Security security = Security.getInstance();
         Gebruiker gebruiker = security.getActieveGebruiker();

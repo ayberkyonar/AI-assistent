@@ -1,6 +1,12 @@
 {
-  "hallo": "Hallo dit is AI42! Hoe kan ik je helpen?",
+  "hallo": "Hallo dit is AI42!",
   "help": "Natuurlijk! Waarmee kan ik je helpen?",
-  "dank je": "Graag gedaan!",
-  "Java": "Java is een objectgeoriënteerde programmeertaal. \nJava is een platformonafhankelijke taal die qua syntaxis grotendeels gebaseerd is op de programmeertaal C++. \nJava beschikt echter over een uitgebreidere klassenbibliotheek dan C++"
+  "bedankt": "Geen probleem! Ik help je graag verder.",
+  "Java": "Java is een objectgeoriënteerde programmeertaal. \nJava is een platformonafhankelijke taal die qua syntaxis grotendeels gebaseerd is op de programmeertaal C++. \nJava beschikt echter over een uitgebreidere klassenbibliotheek dan C++",
+  "Python": "Python is een hoge-niveau programmeertaal die eenvoudig te leren en te gebruiken is. \nHet ondersteunt verschillende programmeerparadigma's en heeft een uitgebreide standaardbibliotheek.",
+  "naam": "Mijn naam is AI42!",
+  "goedemorgen": "Goedemorgen! Hoe kan ik je vandaag helpen?",
+  "doei": "Tot ziens! Hopelijk kan ik je snel weer helpen.",
+  "json": "JSON staat voor JavaScript Object Notation. \nHet is een lichtgewicht formaat voor het uitwisselen van gegevens. \nJSON is gemakkelijk leesbaar voor mensen en machines en wordt vaak gebruikt voor API's.",
+  "sorry" : "echt sorry dit"
 }

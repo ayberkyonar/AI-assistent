@@ -74,6 +74,20 @@ public class DataSearch extends Antwoord {
             }
         }
 
+        if (antwoorden.isEmpty()) {
+            Security security = Security.getInstance();
+            Gebruiker gebruiker = security.getActieveGebruiker();
+            String currentLanguage = gebruiker.getTaal();
+
+            if (currentLanguage.equals("Nederlands")) {
+                antwoorden.add("Sorry, ik begrijp je vraag niet. Kun je het op een andere manier formuleren?");
+            } else if (currentLanguage.equals("English")) {
+                antwoorden.add("Sorry, I don't understand your question. Could you phrase it differently?");
+            }
+        }
+
+
+
         return antwoorden;
     }
 

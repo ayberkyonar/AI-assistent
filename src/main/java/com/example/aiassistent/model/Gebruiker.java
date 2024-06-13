@@ -1,6 +1,7 @@
 package com.example.aiassistent.model;
 
 import com.example.aiassistent.utils.Observer;
+import com.example.aiassistent.utils.GebruikerMethode;
 
 public class Gebruiker implements Observer{
     private int gebruikerID;
@@ -74,5 +75,10 @@ public class Gebruiker implements Observer{
                 ", email='" + email + '\'' +
                 ", wachtwoord='" + wachtwoord + '\'' +
                 '}';
+    }
+
+    public void logGebruiker() {
+        GebruikerMethode gebruikerMethode = new GebruikerMethode();
+        gebruikerMethode.toonGebruiker(this);
     }
 }
