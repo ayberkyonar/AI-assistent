@@ -264,6 +264,20 @@ public class DatabaseController {
             System.out.println("Error inserting vraag: " + e);
         }
     }
+
+    public void insertAntwoordData(String antwoord, String herkomst, int vraagID) {
+        try {
+            String query = "INSERT INTO antwoord (tekst, herkomst, vraagID) VALUES (?, ? , ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, antwoord);
+            preparedStatement.setString(2, herkomst);
+            preparedStatement.setInt(3, vraagID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error inserting antwoord: " + e);
+        }
+    }
+
 }
 
 /*

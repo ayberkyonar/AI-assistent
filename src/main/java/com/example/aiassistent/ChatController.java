@@ -52,6 +52,8 @@ public class ChatController {
 
     private int chatsessieID;
 
+    private int vraagID;
+
     @FXML
     private void initialize() {
         verzend.setOnAction(event -> sendMessage());
@@ -71,12 +73,7 @@ public class ChatController {
         }
         String message = messageField.getText();
         if (!message.isEmpty()) {
-            DataSearch dataSearch = new DataSearch(0, "", 0); // Initialize DataSearch object
             DatabaseController.getInstance().insertVraagData(message, chatsessieID);
-            String antwoord = String.valueOf(dataSearch.zoekAntwoord(message));
-            chatArea.appendText(gebruiker.getNaam() + ": " + message + "\n");
-            chatArea.appendText("AI: " + antwoord + "\n");
-            messageField.clear();
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.aiassistent.model;
 
+import com.example.aiassistent.utils.DatabaseController;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ public class DataSearch extends Antwoord {
 
     @Override
     public String maakAntwoord(String prompt) {
+        //DatabaseController.getInstance().insertAntwoordData(antwoord, "42Data",  vraagID);
         return null;
     }
 
