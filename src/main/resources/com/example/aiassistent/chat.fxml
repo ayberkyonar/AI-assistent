@@ -16,11 +16,11 @@
     <HBox>
         <!-- Deel met chatgeschiedenis -->
         <VBox alignment="CENTER_LEFT" fillWidth="false" prefHeight="54.0" prefWidth="230.0" style="-fx-background-color: #0a192f;">
-            <TextArea fx:id="chatHistoryArea" editable="false" prefHeight="402.0" prefWidth="210.0" promptText="Vorige sessies..." style="-fx-background-color: #0a192f; -fx-text-fill: #d1d5db; -fx-font-size: 16px;" VBox.vgrow="ALWAYS">
+            <VBox fx:id="chatHistoryArea" prefHeight="402.0" prefWidth="210.0" style="-fx-background-color: #0a192f;">
                 <padding>
                     <Insets bottom="51.0" top="52.0" />
                 </padding>
-            </TextArea>
+            </VBox>
             <HBox.margin>
                 <Insets />
             </HBox.margin>
