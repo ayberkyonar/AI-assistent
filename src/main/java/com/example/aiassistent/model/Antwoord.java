@@ -39,6 +39,6 @@ abstract public class Antwoord {
     abstract public String getHerkomst();
 
     abstract public String maakAntwoord(String prompt);
-    abstract public boolean checkAntwoord(String tekst);
+
 
 }

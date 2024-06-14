@@ -11,5 +11,6 @@ module com.example.aiassistent {
     opens com.example.aiassistent to javafx.fxml;
     exports com.example.aiassistent;
     exports com.example.aiassistent.utils;
+    exports com.example.aiassistent.model;
     opens com.example.aiassistent.utils to javafx.fxml;
 }
