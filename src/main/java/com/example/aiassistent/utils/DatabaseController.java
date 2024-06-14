@@ -84,7 +84,8 @@ public class DatabaseController {
                     "`gebruikerID` INT AUTO_INCREMENT PRIMARY KEY, " +
                     "`naam` varchar(45) NOT NULL, " +
                     "`email` varchar(45) NOT NULL, " +
-                    "`wachtwoord` varchar(64) NOT NULL)");
+                    "`wachtwoord` varchar(65) NOT NULL, " +
+                    "`taal` varchar(65) NOT NULL)");
 
             statement.executeUpdate("CREATE TABLE `chatsessie` (" +
                     "`chatsessieID` INT AUTO_INCREMENT PRIMARY KEY, " +
@@ -105,12 +106,12 @@ public class DatabaseController {
                     "`vraagID` INT NOT NULL, " +
                     "FOREIGN KEY (`vraagID`) REFERENCES `vraag`(`vraagID`))");
 
-            insertGebruikerData(connection, "gebruiker", "gebruiker@gmail.com", "gebruiker");
-            insertGebruikerData(connection, "daniel", "daniel@gmail.com", "daniel");
-            insertGebruikerData(connection, "ayberk", "ayberk@gmail.com", "ayberk");
-            insertGebruikerData(connection, "denvey", "denvey@gmail.com", "denvey");
-            insertGebruikerData(connection, "danish", "danish@gmail.com", "danish");
-            insertGebruikerData(connection, "mykyta", "mykyta@gmail.com", "mykyta");
+            insertGebruikerData(connection, "gebruiker", "gebruiker@gmail.com", "gebruiker", "Nederlands");
+            insertGebruikerData(connection, "daniel", "daniel@gmail.com", "daniel", "Engels");
+            insertGebruikerData(connection, "ayberk", "ayberk@gmail.com", "ayberk", "Nederlands");
+            insertGebruikerData(connection, "denvey", "denvey@gmail.com", "denvey", "Nederlands");
+            insertGebruikerData(connection, "danish", "danish@gmail.com", "danish", "Nederlands");
+            insertGebruikerData(connection, "mykyta", "mykyta@gmail.com", "mykyta", "Nederlands");
 
         } catch (Exception e) {
             System.out.println("Error creating tables: " + e);
@@ -150,14 +151,19 @@ public class DatabaseController {
         }
     }
 
-    private static void insertGebruikerData(Connection connection, String naam, String email, String wachtwoord) {
+    private static void insertGebruikerData(Connection connection, String naam, String email, String wachtwoord, String taal) {
+
+        System.out.println("Inserting data");
+        System.out.println("Taal: " + taal);
+
         try {
             String hashedPassword = hashWachtwoord(wachtwoord);
-            String query = "INSERT INTO gebruiker (naam, email, wachtwoord) VALUES (?, ?, ?)";
+            String query = "INSERT INTO gebruiker (naam, email, wachtwoord, taal) VALUES (?, ?, ?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, naam);
             preparedStatement.setString(2, email);
             preparedStatement.setString(3, hashedPassword);
+            preparedStatement.setString(4, taal);
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error inserting data: " + e);
@@ -178,7 +184,8 @@ public class DatabaseController {
                 String naam = resultSet.getString("naam");
                 String email = resultSet.getString("email");
                 String wachtwoord = resultSet.getString("wachtwoord");
-                Gebruiker gebruiker = new Gebruiker(gebruikerID, naam, email, wachtwoord);
+                String taal = resultSet.getString("taal");
+                Gebruiker gebruiker = new Gebruiker(gebruikerID, naam, email, wachtwoord, taal);
                 gebruikers.add(gebruiker);
             }
         } catch (Exception e) {
@@ -275,36 +282,19 @@ public class DatabaseController {
     }
 
     public void updateGebruiker(Gebruiker gebruiker) {
+
         try {
-            String query = "UPDATE gebruiker SET naam = ?, email = ?, wachtwoord = ? WHERE gebruikerID = ?";
+            String query = "UPDATE gebruiker SET naam = ?, email = ?, wachtwoord = ?, taal = ? WHERE gebruikerID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, gebruiker.getNaam());
             preparedStatement.setString(2, gebruiker.getEmail());
             preparedStatement.setString(3, gebruiker.getWachtwoord());
-            preparedStatement.setInt(4, gebruiker.getGebruikerID());
+            preparedStatement.setString(4, gebruiker.getTaal());
+            preparedStatement.setInt(5, gebruiker.getGebruikerID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error updating gebruiker: " + e);
         }
-    }
-
-    public Gebruiker getGebruikerById(int gebruikerID) {
-        Gebruiker gebruiker = null;
-        try {
-            String query = "SELECT * FROM gebruiker WHERE gebruikerID = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, gebruikerID);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                String naam = resultSet.getString("naam");
-                String email = resultSet.getString("email");
-                String wachtwoord = resultSet.getString("wachtwoord");
-                gebruiker = new Gebruiker(gebruikerID, naam, email, wachtwoord);
-            }
-        } catch (SQLException e) {
-            System.out.println("Error fetching gebruiker: " + e);
-        }
-        return gebruiker;
     }
 
     public ArrayList<Vraag> getVragen(int chatsessieID) {
@@ -433,12 +423,3 @@ public class DatabaseController {
     }
 
 }
-
-/*
-    // Delete later:
-    public static void main(String[] args) {
-
-        DatabaseController databaseController = DatabaseController.getInstance();
-        Connection connection = databaseController.getConnection();
-
-    }*/

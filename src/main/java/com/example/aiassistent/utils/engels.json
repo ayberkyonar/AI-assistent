@@ -1,0 +1,11 @@
+{
+  "hello": "Hello, this is AI42!",
+  "help": "Of course! How can I assist you?",
+  "thank you": "You're welcome!",
+  "Java": "Java is an object-oriented programming language. \nJava is a platform-independent language that is largely based on the syntax of the C++ programming language. \nHowever, Java has a more extensive class library than C++.",
+  "Python": "Python is a high-level programming language that is easy to learn and use. \nIt supports various programming paradigms and has an extensive standard library.",
+  "name": "My name is AI42!",
+  "goodmorning": "Good morning! How can I help you today?",
+  "bye": "Goodbye! Hopefully, I can help you again soon.",
+  "json": "JSON stands for JavaScript Object Notation. \nIt is a lightweight format for data interchange. \nJSON is easy for humans to read and write and for machines to parse and generate, and it is often used for APIs."
+}

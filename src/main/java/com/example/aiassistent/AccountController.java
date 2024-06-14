@@ -11,10 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import javax.crypto.SecretKey;
@@ -23,12 +20,15 @@ import java.io.IOException;
 public class AccountController {
 
     private Stage stage;
-    private Scene scene;
     private Parent root;
     private Gebruiker gebruiker;
 
     @FXML
-    public TextField emailField;
+    private MenuButton TaalKnop;
+
+    @FXML
+    private TextField emailField;
+
 
     @FXML
     public TextField usernameField;
@@ -93,7 +93,7 @@ public class AccountController {
 
         String hashedPassword = DatabaseController.hashWachtwoord(newPassword);
 
-        Gebruiker newGebruiker = new Gebruiker(gebruiker.getGebruikerID(), newUsername, newEmail, hashedPassword);
+        Gebruiker newGebruiker = new Gebruiker(gebruiker.getGebruikerID(), newUsername, newEmail, hashedPassword, gebruiker.getTaal());
 
         DatabaseController.getInstance().updateGebruiker(newGebruiker);
         Security security = Security.getInstance();
@@ -106,6 +106,32 @@ public class AccountController {
 
         System.out.println(security.getActieveGebruiker());
         alert.showAndWait();
+    }
+
+    @FXML
+    private void selectLanguageNederlands(ActionEvent event) {
+        System.out.println("Nederlands geselecteerd");
+        TaalKnop.setText("NL");
+
+        Security security = Security.getInstance();
+        Gebruiker gebruiker = security.getActieveGebruiker();
+        gebruiker.setTaal("Nederlands");
+
+        DatabaseController databaseController = DatabaseController.getInstance();
+        databaseController.updateGebruiker(gebruiker);
+    }
+
+    @FXML
+    private void selectLanguageEnglish(ActionEvent event) {
+        System.out.println("English selected");
+        TaalKnop.setText("ENG");
+
+        Security security = Security.getInstance();
+        Gebruiker gebruiker = security.getActieveGebruiker();
+        gebruiker.setTaal("English");
+
+        DatabaseController databaseController = DatabaseController.getInstance();
+        databaseController.updateGebruiker(gebruiker);
     }
 
     @FXML

@@ -18,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
-import com.example.aiassistent.model.DataSearch;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,13 +25,9 @@ import java.util.ArrayList;
 public class ChatController  {
 
     private Stage stage;
-    private Scene scene;
     private Parent root;
     private ObserverOndersteuning observerOndersteuning;
     private ChatsessieCounter chatsessieCounter;
-
-    @FXML
-    private StackPane rootPane;
 
     @FXML
     private VBox chatHistoryArea;
@@ -114,7 +109,13 @@ public class ChatController  {
 
         loadChat();
         loadChatHistory();
+        clearInput();
     }
+
+    private void clearInput() {
+        messageField.clear();
+    }
+
     private void loadChat(){
         chatArea.clear();
         Security security = Security.getInstance();
@@ -183,8 +184,6 @@ public class ChatController  {
 
         chatHistoryScrollPane.setContent(chatHistoryArea);
     }
-
-
 
     private void handleChatButton(Chatsessie chatsessie) {
         this.chatsessieID = chatsessie.getChatsessieID();

@@ -1,18 +1,21 @@
 package com.example.aiassistent.model;
 
 import com.example.aiassistent.utils.Observer;
+import com.example.aiassistent.utils.GebruikerMethode;
 
 public class Gebruiker implements Observer{
     private int gebruikerID;
     private String naam;
     private String email;
     private String wachtwoord;
+    private String taal;
 
-    public Gebruiker(int gebruikerID, String naam, String email, String wachtwoord) {
+    public Gebruiker(int gebruikerID, String naam, String email, String wachtwoord, String taal) {
         this.gebruikerID = gebruikerID;
         this.naam = naam;
         this.email = email;
         this.wachtwoord = wachtwoord;
+        this.taal = taal;
     }
 
     public boolean checkCorrectCredentials (String naam, String wachtwoord) {
@@ -51,6 +54,14 @@ public class Gebruiker implements Observer{
         this.wachtwoord = wachtwoord;
     }
 
+    public String getTaal() {
+        return taal;
+    }
+
+    public void setTaal(String taal) {
+        this.taal = taal;
+    }
+
     @Override
     public void update(int gebruikerID, int chatsessieCount) {
 
@@ -64,5 +75,10 @@ public class Gebruiker implements Observer{
                 ", email='" + email + '\'' +
                 ", wachtwoord='" + wachtwoord + '\'' +
                 '}';
+    }
+
+    public void logGebruiker() {
+        GebruikerMethode gebruikerMethode = new GebruikerMethode();
+        gebruikerMethode.toonGebruiker(this);
     }
 }
