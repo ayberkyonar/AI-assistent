@@ -29,11 +29,12 @@ public class AccountController {
     @FXML
     private TextField emailField;
 
-    @FXML
-    private TextField usernameField;
 
     @FXML
-    private PasswordField passwordField;
+    public TextField usernameField;
+
+    @FXML
+    public PasswordField passwordField;
 
     @FXML
     private Button confirmButton;
@@ -57,8 +58,13 @@ public class AccountController {
         uitloggen.setOnAction(this::handleLogout);
         confirmButton.setOnAction(this::handleConfirm);
     }
-
-    private void handleConfirm(ActionEvent event) {
+    public boolean evaluatefields(ActionEvent event){
+        String newEmail = emailField.getText();
+        String newUsername = usernameField.getText();
+        String newPassword = passwordField.getText();
+        return newEmail != null && newUsername!= null && newPassword != null ;
+    }
+    public void handleConfirm(ActionEvent event) {
         String newEmail = emailField.getText();
         String newUsername = usernameField.getText();
         String newPassword = passwordField.getText();

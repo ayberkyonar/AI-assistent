@@ -29,11 +29,6 @@ public class DataSearch extends Antwoord {
         return antwoord;
     }
 
-    @Override
-    public boolean checkAntwoord(String tekst) {
-        return false;
-    }
-
     public ArrayList<String> zoekAntwoord(String gebruikerBericht) {
         Security security = Security.getInstance();
         Gebruiker gebruiker = security.getActieveGebruiker();

@@ -10,7 +10,7 @@ import java.util.Map;
 public class ObserverOndersteuning {
 
     private List<Observer> observers = new ArrayList<>();
-    private Map<Integer, Integer> gebruikerChatsessieCounts = new HashMap<>(); // Map gebruikerID naar chatsessieCount
+    private Map<Integer, Integer> gebruikerChatsessieCounts = new HashMap<>();
 
     public void registerObserver(Observer observer) {
         observers.add(observer);
@@ -30,10 +30,6 @@ public class ObserverOndersteuning {
         int gebruikerID = gebruiker.getGebruikerID();
         gebruikerChatsessieCounts.put(gebruikerID, gebruikerChatsessieCounts.getOrDefault(gebruikerID, 0) + 1);
         notifyObservers(gebruikerID);
-    }
-
-    public int getChatsessieCount(int gebruikerID) {
-        return gebruikerChatsessieCounts.getOrDefault(gebruikerID, 0);
     }
 
     public void setChatsessieCount(int gebruikerID, int chatsessieCount) {

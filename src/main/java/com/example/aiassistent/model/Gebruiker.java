@@ -61,7 +61,10 @@ public class Gebruiker implements Observer{
     public void setTaal(String taal) {
         this.taal = taal;
     }
+public boolean testInlog(boolean geldigeGebruikersnaam, boolean geldigeEmail, boolean geldigeWachtwoord){
+        return geldigeGebruikersnaam && geldigeEmail && geldigeWachtwoord;
 
+}
     @Override
     public void update(int gebruikerID, int chatsessieCount) {
 

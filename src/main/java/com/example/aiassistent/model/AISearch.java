@@ -16,8 +16,4 @@ public class AISearch extends Antwoord {
         return null;
     }
 
-    @Override
-    public boolean checkAntwoord(String tekst) {
-        return false;
-    }
 }
